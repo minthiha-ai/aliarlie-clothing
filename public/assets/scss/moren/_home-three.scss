@@ -1,0 +1,183 @@
+/*
+-----------------------------------------------------------------------
+  Home Three CSS
+-----------------------------------------------------------------------
+*/
+.home-three-wrapper {
+  font-family: $font-current-theme8;
+
+  h1, h2, h3, h4, h5, h6,
+  .h1, .h2, .h3, .h4, .h5, .h6 {
+    font-family: $font-current-theme9;
+  }
+
+  .header-area {
+    &.header-default {
+      &.header-style5 {
+        .container-fluid {
+          max-width: none;
+          padding: 50px 30px;
+          @media #{$sm-device} {
+            padding: 30px 30px;
+          }
+        }
+        .header-logo-area {
+          display: none;
+          @media #{$xl-device} {
+            display: block;
+          }
+        }
+        .header-action-area {
+          .btn-cart {
+            .cart-count {
+             background-color: $theme-color;
+            }
+          }
+          .btn-menu {
+            i {
+              color: $white;
+            }
+          }
+        }
+        &.sticky-header {
+          &.sticky {
+            .header-action-area {
+              .btn-menu {
+                i {
+                  color: $black-333;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .main-content {
+    &.site-wrapper-left-header {
+      @media #{$xl-device} {
+        padding-left: 0 !important;
+      }
+    }
+  }
+
+  .section-title {
+    .subtitle {
+      font-family: $font-current-theme9;
+    }
+  }
+
+  .product-item {
+    .product-thumb {
+      .product-action {
+        a {
+          @media #{$lg-device} {
+            font-size: 14px;
+            height: 24px;
+            line-height: 24px;
+            width: 24px;
+          }
+        }
+      }
+    }
+  }
+
+  .category-area {
+    .category-items-style15 {
+      .category-item {
+        .thumb {
+          img {
+            @media #{$md-device} {
+              width: 100%;
+            }
+          }
+        }
+        .content {
+          .title {
+            font-family: $font-current-theme10;
+            @media #{$lg-device} {
+              font-size: 36px;
+            }
+            @media #{$sm-device} {
+              font-size: 24px;
+            }
+          }
+        }
+      }
+    }
+    .btn-theme {
+      margin-top: 20px;
+      font-family: $font-current-theme1;
+      @media #{$sm-device} {
+        margin-top: 15px;
+      }
+    }
+    .product-info {
+      .content-inner {
+        .title {
+          font-family: $font-current-theme1;
+        }
+        .prices {
+          .price {
+            font-family: $font-current-theme1;
+          }
+        }
+      }
+    }
+  }
+
+  .divider-area {
+    .divider-content {
+      &.divider-content-style4 {
+        h2 {
+          font-family: $font-current-theme10;
+        }
+        h4 {
+          font-family: $font-current-theme2;
+        }
+        .btn-theme {
+          font-family: $font-current-theme1;
+        }
+      }
+    }
+  }
+
+  .newsletter-content {
+    &.content-style4 {
+      .title {
+        font-family: $font-current-theme10;
+      }
+      p {
+        font-family: $font-current-theme1;
+      }
+      .newsletter-form {
+        .form-control {
+          font-family: $font-current-theme1;
+        }
+      }
+    }
+  }
+
+  .footer-area {
+    &.footer-style6 {
+      @media #{$xl-device} {
+        padding-left: 0 !important;
+      }
+    }
+    .footer-main {
+      .widget-item {
+        h4 {
+          font-family: $font-current-theme1;
+        }
+        .widget-menu-wrap {
+          .nav-menu {
+            li {
+              font-family: $font-current-theme1;
+            }
+          }
+        }
+      }
+    }
+  }
+}

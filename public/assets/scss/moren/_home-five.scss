@@ -1,0 +1,60 @@
+/*
+-----------------------------------------------------------------------
+  Home Five CSS
+-----------------------------------------------------------------------
+*/
+.home-five-wrapper {
+  .header-area.header-default.header-style5 {
+    .container-fluid {
+      @media #{$sm-device} {
+        padding: 40px 15px;
+      }
+    }
+    .header-action-area {
+      .btn-menu {
+        i {
+          color: $white;
+        }
+      }
+    }
+    &.sticky-header {
+      &.sticky {
+        .header-action-area {
+          .btn-menu {
+            i {
+              color: $black-333;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .section-title {
+    .subtitle {
+      font-family: $font-current-theme2;
+    }
+  }
+  .product-area {
+    &.new-product-area {
+      padding: 94px 0 69px;
+      @media #{$md-device} {
+        padding: 84px 0 59px;
+      }
+      @media #{$sm-device} {
+        padding: 64px 0 39px;
+      }
+      .section-title {
+        margin-bottom: 15px;
+        .title {
+          margin-bottom: 25px;
+          font-style: italic;
+          text-transform: uppercase;
+        }
+      }
+      .product-item {
+        margin-bottom: 25px;
+      }
+    }
+  }
+}

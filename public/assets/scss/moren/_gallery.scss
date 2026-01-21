@@ -1,0 +1,249 @@
+/*
+-----------------------------------------------------------------------
+	Gallery CSS
+-----------------------------------------------------------------------
+*/
+.gallery-area {
+	&.gallery-trends-area {
+		padding: 95px 0 0;
+    @media #{$md-device} {
+      padding: 85px 0 0;
+    }
+    @media #{$sm-device} {
+      padding: 65px 0 0;
+    }
+	}
+	&.gallery-style5-area {
+		padding: 94px 0 80px;
+    @media #{$md-device} {
+      padding: 84px 0 70px;
+    }
+    @media #{$sm-device} {
+      padding: 64px 0 50px;
+    }
+		.section-title {
+			margin-bottom: 52px;
+			@media #{$xs-device} {
+				margin-bottom: 45px;
+			}
+			.title {
+				font-style: italic;
+			}
+			.title-stroke {
+				color: $theme-color7;
+				font-size: 60px;
+				font-style: italic;
+				font-weight: 700;
+				line-height: 1;
+				text-transform: uppercase;
+			  -webkit-text-fill-color: transparent;
+			  -webkit-text-stroke-width: 1px;
+			  -webkit-text-stroke-color: currentColor;
+			  @media #{$xs-device} {
+			  	font-size: 36px;
+			  }
+			}
+		}
+	}
+}
+.gallery-item {
+	.thumb {
+		position: relative;
+		img {
+			width: 100%;
+		}
+		.overlay {
+		  align-items: center;
+			background-color: rgba($black, .5);
+			display: flex;
+			height: 100%;
+			justify-content: center;
+			left: 0;
+			opacity: 0;
+			pointer-events: none;
+			position: absolute;
+			top: 0;
+			visibility: hidden;
+			width: 100%;
+			@include transition(.3s);
+			i {
+				color: $white;
+				font-size: 36px;
+				@include transition(.3s);
+			}
+		}
+	}
+	&:hover {
+		.thumb {
+			.overlay {
+				opacity: 1;
+				visibility: visible;
+			}
+		}
+	}
+}
+
+.galery-masonry-style1 {
+	margin-left: -10px;
+	margin-right: -10px;
+	.masonry-item {
+		margin-bottom: 20px;
+		padding-left: 10px;
+		padding-right: 10px;
+		width: 46.555%;
+		&.item-size2 {
+			width: 53.194%;
+		}
+	}
+	.gallery-item {
+		.thumb {
+			overflow: hidden;
+			img {
+				@include transition(.5s); 
+			}
+		}
+		&:hover {
+			.thumb {
+				img {
+					@include scale(1.1);
+				}
+			}
+		}
+	}
+}
+
+.gallery-trends-container {
+	margin-right: 10%;
+	overflow: visible;
+	.swiper-wrapper {
+	}
+	.slider-item {
+		height: 844.83px;
+		overflow: hidden;
+		.bg-thumb {
+			background-size: cover;
+			background-position: center;
+			background-repeat: no-repeat;
+			height: 100%;
+			width: 100%;
+			@include transition(.5s);
+		}
+		&:hover {
+			.bg-thumb {
+				@include scale(1.1);
+			}
+		}
+	}
+}
+
+.social-area {
+	&.social-style1-area {
+		background-color: $gray-lighter;
+    padding: 0 0 91px;
+    @media #{$xl-device} {
+    	padding-bottom: 50px;
+    }
+    @media #{$lg-device} {
+    	padding-bottom: 30px;
+    }
+    .container {
+      max-width: 1470px;
+    }
+    .section-title {
+      margin-bottom: 115px;
+      margin-top: -39px;
+      @media #{$lg-device} {
+      	margin-top: -20px;
+      	margin-bottom: 75px;
+      }
+      .title {
+        font-size: 70px;
+        font-weight: 400;
+        letter-spacing: -1.4px;
+        @media #{$lg-device} {
+        	font-size: 40px;
+        }
+      }
+    }
+  }
+}
+
+.social-items-style1 {
+  .social-item {
+    display: flex;
+    position: relative;
+    align-items: center;
+    @media #{$md-device} {
+    	margin-bottom: 30px;
+    }
+    @media #{$xxs-device} {
+    	display: block;
+    }
+    .thumb {
+      margin-right: 55px;
+      @media #{$lg-device} {
+      	margin-right: 30px;
+      }
+      @media #{$xxs-device} {
+      	margin-bottom: 30px;
+      }
+      img {
+        width: 340px;
+        @media #{$md-device} {
+        	width: 140px;
+        }
+      }
+    }
+    .content {
+      flex: 1 0 0%;
+      .inner-content {
+        .title {
+          font-size: 28px;
+          font-weight: 400;
+          margin-bottom: 20px;
+          letter-spacing: -.56px;
+          @media #{$lg-device} {
+          	font-size: 20px;
+          }
+          @media #{$md-device} {
+          	margin-bottom: 10px;
+          }
+        }
+        p {
+          color: $black-666;
+          font-size: 20px;
+          font-weight: 400;
+          @media #{$lg-device} {
+          	font-size: 16px;
+          }
+        }
+      }
+    }
+    &.item-style2 {
+      margin-bottom: 60px;
+      margin-left: -3px;
+      @media #{$md-device} {
+      	margin-left: 0;
+      }
+      @media #{$md-device} {
+      	margin-bottom: 30px;
+      }
+      .thumb {
+        margin-right: 50px;
+        @media #{$lg-device} {
+        	margin-right: 30px;
+        }
+        img {
+          width: 140px;
+        }
+      }
+      .content {
+        .inner-content {
+          .title {
+            margin-bottom: 10px;
+          }
+        }
+      }
+    }
+  }
+}

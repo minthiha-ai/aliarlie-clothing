@@ -1,0 +1,325 @@
+/*
+-----------------------------------------------------------------------
+  Home Two CSS
+-----------------------------------------------------------------------
+*/
+.home-two-wrapper {
+  font-family: $font-current-theme4;
+
+  h1, h2, h3, h4, h5, h6,
+  .h1, .h2, .h3, .h4, .h5, .h6 {
+    font-family: $font-current-theme4;
+  }
+
+  .section-title {
+    .subtitle {
+      font-family: $font-current-theme4;
+    }
+  }
+
+  .product-area {
+    &.new-collection-product-area {
+      padding: 100px 0 75px;
+      @media #{$md-device} {
+        padding: 90px 0 65px;
+      }
+      @media #{$sm-device} {
+        padding: 70px 0 45px;
+      }
+      .container-fluid {
+        padding: 0 48px 0 120px;
+        @media #{$xxs-device} {
+          padding: 0 15px 0 60px;
+        }
+        position: relative;
+        .title-rotate {
+          left: 65px;
+          max-width: 100%;
+          position: absolute;
+          top: 0%;
+          transform: translateX(-100%) rotate(-90deg);
+          transform-origin: right;
+          width: auto;
+          @media #{$xxs-device} {
+            left: 30px;
+          }
+          .title {
+            color: #c3c3c3;
+            font-size: 70px;
+            font-weight: bold;
+            text-transform: uppercase;
+            line-height: 1;
+            letter-spacing: 10.5px;
+            margin: 0;
+            @media (max-width:1799px) {
+              font-size: 64px;
+              letter-spacing: 7px;
+            }
+            @media (max-width:1599px) {
+              font-size: 44px;
+              letter-spacing: 5px;
+            }
+            @media #{$lg-device} {
+              font-size: 34px;
+              letter-spacing: 3px;
+            }
+            @media #{$xxs-device} {
+              font-size: 20px;
+              letter-spacing: 2px;
+            }
+          }
+        }
+      }
+    }
+    &.top-product-area {
+      padding: 94px 0 100px;
+      @media #{$md-device} {
+        padding: 84px 0 90px;
+      }
+      @media #{$sm-device} {
+        padding: 64px 0 70px;
+      }
+      .section-title {
+        margin-bottom: 55px;
+        @media #{$md-device} {
+          margin-bottom: 45px;
+        }
+        .title {
+          font-size: 50px;
+          letter-spacing: -1px;
+          @media #{$md-device} {
+            font-size: 36px;
+          }
+        }
+      }
+      .product-item {
+        margin-bottom: 24px;
+        .product-info {
+          .content-inner {
+            .title {
+              a {
+                &:hover {
+                  color: $theme-color5;
+                }
+              }
+            }
+          }
+        }
+      }
+      .btn-theme {
+        border-color: $black-333;
+        color: $black-333;
+        font-size: 22px;
+        line-height: 28px;
+        text-transform: uppercase;
+        margin-top: 20px;
+        padding: 10px 30px 10px 30px;
+        @include transition(all .3s ease-in-out);
+        &:hover {
+          background-color: $theme-color5;
+          border-color: $theme-color5;
+          color: $white;
+        }
+      }
+    }
+  }
+
+  .product-item {
+    .product-thumb {
+      .product-action {
+        a {
+          &:hover {
+            background-color: $theme-color5;
+          }
+        }
+      }
+      .product-action-info {
+        .content-inner {
+          .title {
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: -.56px;
+            line-height: 1.4;
+            text-transform: uppercase;
+            @media (max-width:1599px) {
+              font-size: 18px;
+            }
+            @media #{$xxs-device} {
+              font-size: 13px;
+            }
+            a {
+              color: $black-333;
+            }
+          }
+          .prices {
+            .price {
+              font-size: 28px;
+              line-height: 1.4;
+              @media (max-width:1599px) {
+                font-size: 18px;
+              }
+              @media #{$xxs-device} {
+                font-size: 14px;
+              }
+            }
+          }
+        }
+      }
+    }
+    .product-info {
+      .title {
+        font-size: 20px;
+        font-weight: 700;
+        letter-spacing: -.4px;
+        line-height: 1.4;
+        text-transform: uppercase;
+        @media #{$md-device} {
+          font-size: 16px;
+        }
+      }
+      .prices {
+        .price {
+          color: $theme-color5;
+          font-size: 20px;
+          line-height: 1.4;
+          @media #{$md-device} {
+            font-size: 16px;
+          }
+        }
+      }
+    }
+  }
+
+  .category-item {
+    .content {
+      .inner-content {
+        .title {
+          font-family: $font-current-theme4;
+        }
+      }
+    }
+  }
+
+  .newsletter-area {
+    padding: 0 0 30px;
+    position: relative;
+    &:before {
+      background-color: #1C152F;
+      content: "";
+      height: 100%;
+      left: 0;
+      opacity: 0.6;
+      position: absolute;
+      top: 0;
+      width: 100%;
+    }
+    .newsletter-content {
+      text-align: center;
+    }
+  }
+
+  .testimonial-area {
+    background-color: $white;
+    box-shadow: 0 0 30px 0 rgba(0, 0, 0, .15);
+    margin: 0 auto 0;
+    max-width: 1640px;
+    position: relative;
+    width: 100%;
+    z-index: 1;
+    @include translate(0, -70px);
+    @media (max-width:1699px) {
+      background-color: transparent;
+      box-shadow: none;
+    }
+    .testimonial-slider-content {
+      @media (max-width:1699px) {
+        background-color: $white;
+        box-shadow: 0 0 30px 0 rgba(0, 0, 0, .15);
+        margin-left: 30px;
+        margin-right: 30px;
+      }
+      @media #{$md-device} {
+        margin-left: 15px;
+        margin-right: 15px;
+      }
+    }
+    .testimonial-single {
+      padding: 60px 0;
+      margin-left: auto;
+      margin-right: auto;
+      max-width: 1170px;
+      position: relative;
+      width: 100%;
+      @media #{$xl-device} {
+        padding: 60px 30px;
+      }
+      @media #{$md-device} {
+        padding: 40px 15px;
+      }
+      @media #{$xxs-device} {
+        padding: 35px 15px 35px 15px;
+      }
+    }
+  }
+
+  .post-items {
+    .post-item {
+      @media #{$xs-device} {
+        display: block;
+      }
+      .thumb {
+        @media #{$lg-device} {
+          margin-right: 20px;
+          min-width: 220px;
+        }
+        @media #{$md-device} {
+          min-width: 450px;
+        }
+        @media #{$sm-device} {
+          min-width: 250px;
+        }
+        @media #{$xs-device} {
+          margin-bottom: 30px;
+          width: 100%;
+        }
+        img {
+          @media #{$xs-device} {
+            width: 100%;
+          }
+        }
+      }
+      .content {
+        @media #{$xl-device} {
+          padding: 0;
+        }
+        @media #{$md-device} {
+          padding-top: 20px;
+        }
+        @media #{$sm-device} {
+          padding-top: 0;
+        }
+        @media #{$xs-device} {
+          max-width: none;
+        }
+        .inner-content {
+          .title {
+            @media #{$lg-device} {
+              font-size: 18px;
+            }
+          }
+          p {
+            @media #{$lg-device} {
+              margin-bottom: 12px;
+            }
+          }
+        }
+        .btn-theme {
+          @media #{$lg-device} {
+            font-size: 13px;
+            padding: 7px 11px 7px 11px;
+          }
+        }
+      }
+    }
+  }
+}

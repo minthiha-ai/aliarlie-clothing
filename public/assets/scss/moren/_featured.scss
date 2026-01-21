@@ -1,0 +1,84 @@
+/*
+-----------------------------------------------------------------------
+  Featured CSS
+-----------------------------------------------------------------------
+*/
+.featured-area {
+  padding: 79px 0 62px;
+  .container {
+    max-width: 1170px;
+  }
+  &.featured-style2-area {
+    padding: 79px 0 62px;
+  }
+  &.featured-style3-area {
+    padding: 80px 0 80px;
+  }
+}
+.featured-item {
+  padding: 0 10px;
+  .content {
+    text-align: center;
+    padding: 20px 25px 30px;
+    box-shadow: 0 0 30px 0 rgba(0, 0, 0, .0);
+    @include transition(all .3s);
+    span {
+      display: inline-block;
+      svg {
+        color: #C2A18A;
+        margin-bottom: 21px;
+        height: 76px;
+        width: 76px;
+      }
+    }
+    .inner-content {
+      margin: 0 auto;
+      max-width: 290px;
+      .title {
+        font-size: 20px;
+        font-weight: 600;
+        margin-bottom: 14px;
+      }
+      p {
+        font-size: 14px;
+        line-height: 25px;
+      }
+    }
+  }
+  &:hover {
+    .content {
+      box-shadow: 0 0 30px 0 rgba(0, 0, 0, .15);
+    }
+  }
+}
+.featured-style2 {
+  .featured-item {
+    .content {
+      .inner-content {
+        .title {
+          font-family: $font-current-theme1;
+          font-weight: 700;
+        }
+        p {
+          font-family: $font-current-theme1;          
+        }
+      }
+    }
+  }
+}
+.featured-style3 {
+  .featured-item {
+    .content {
+      .inner-content {
+        .title {
+          font-size: 20px;
+          font-family: $font-current-theme1;
+          font-weight: 700;
+        }
+        p {
+          font-family: $font-current-theme1;          
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,145 @@
+/*
+-----------------------------------------------------------------------
+	Testimonial CSS
+-----------------------------------------------------------------------
+*/
+.testimonial-single {
+	.client-thumb {
+		position: absolute;
+		padding-top: 10px;
+		@media #{$xxs-device} {
+			margin-bottom: 20px;
+			position: relative;
+		}
+	}
+	.client-content {
+		padding: 0px 0px 0px 150px;
+		@media #{$xxs-device} {
+			padding: 0;
+		}
+		p {
+			color: $black-333;
+			font-size: 26px;
+			font-weight: 700;
+			line-height: 1.4;
+			margin-bottom: 5px;
+			@media #{$md-device} {
+				font-size: 18px;
+			}
+		}
+	}
+	.client-rating {
+		padding: 0px 0px 0px 150px;
+		@media #{$xxs-device} {
+			padding: 0;
+		}
+		ul {
+			display: flex;
+			margin-bottom: 9px;
+			li {
+				color: #f2d057;
+				font-size: 24px;
+				letter-spacing: 4.8px;
+			}
+		}
+	}
+	.client-info {
+		padding: 0px 0px 0px 150px;
+		@media #{$xxs-device} {
+			padding: 0;
+		}
+		.name {
+			color: $black-333;
+			font-size: 22px;
+			margin-bottom: 6px;
+			@media #{$md-device} {
+				font-size: 18px;
+			}
+		}
+		.designation {
+			color: $black-333;
+			font-size: 14px;
+			font-weight: $font-weight-normal;
+		}
+	}
+}
+
+.testimonial-slider-content {
+	.testimonial-slider-container {
+		.swiper-button-prev,
+    .swiper-button-next {
+    	color: $gray-light;
+    	top: calc(50% + 1px);
+      @include transition(all .3s);
+      @media #{$xl-device} {
+      	display: none;
+      }
+      &:before {
+        content: '\ea6c';
+        font-family:'LaStudioIcons';
+        font-size: 40px;
+      }
+      &:after {
+        display: none;
+      }
+      &:hover {
+        color: $black-333;
+      }
+    }
+    .swiper-button-prev {
+    	left: 106px;
+    	@media (max-width:1599px) {
+    		left: 30px;
+    	}
+      &:before {
+        content: '\ea6c';
+      }
+    }
+    .swiper-button-next {
+    	right: 106px;
+    	@media (max-width:1599px) {
+    		right: 30px;
+    	}
+      &:before {
+        content: '\ea6b';
+      }
+    }
+	}
+}
+
+.testimonial-item {
+	.client-content {
+		margin-bottom: 42px;
+		p {
+			color: $white;
+			font-size: 16px;
+			line-height: 28px;
+		}
+	}
+	.client-info {
+		align-items: center;
+		display: flex;
+		.thumb {
+			margin-right: 20px;
+			img {
+				width: auto;
+			}
+		}
+		.desc {
+			margin-top: 1px;
+			.name {
+				color: $white;
+				font-size: 18px;
+				font-weight: 600;
+				line-height: 1;
+				margin-bottom: 5px;
+			}
+			.designation {
+				color: $white;
+				font-size: 14px;
+				font-weight: 400;
+				margin-bottom: 0;
+			}
+		}
+	}
+}

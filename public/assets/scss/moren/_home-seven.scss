@@ -1,0 +1,184 @@
+/*
+-----------------------------------------------------------------------
+  Home Seven CSS
+-----------------------------------------------------------------------
+*/
+.home-seven-wrapper {
+  font-family: $font-current-theme8;
+
+  h1, h2, h3, h4, h5, h6,
+  .h1, .h2, .h3, .h4, .h5, .h6 {
+    font-family: $font-current-theme9;
+  }
+
+  .header-area {
+    &.header-default {
+      &.header-style6 {
+        .header-align {
+          .header-align-left {}
+          .header-align-center {
+            @media #{$lg-device} {
+              display: none;
+            }
+            .header-navigation-area {
+              .main-menu {
+                @media #{$xl-device} {
+                  margin-left: 0;
+                }
+                .has-submenu {
+                  .submenu-nav-mega {
+                    @media #{$xl-device} {
+                      left: 85%;
+                    }
+                  }
+                }
+              }
+            }
+          }
+          .header-align-right {}
+          .header-logo-area {
+            @media #{$xs-device} {
+              max-width: 115px;
+            }
+          }
+          .header-action-area {
+            .header-action-search-form {
+              @media #{$xs-device} {
+                display: none;
+              }
+            }
+            .btn-menu {
+              color: $black-333;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .section-title {
+    .subtitle {
+      font-family: $font-current-theme9;
+    }
+  }
+
+  .home-area {
+    padding-top: 100px;
+    @media #{$md-device} {
+      padding-top: 80px;
+    }
+    .container {
+      display: flex;
+      max-width: 1640px;
+      padding: 0;
+      @media (max-width:1710px) {
+        padding: 0 40px;
+      }
+      @media #{$md-device} {
+        padding: 0 30px;
+      }
+      @media #{$sm-device} {
+        display: block;
+        padding: 0 15px;
+      }
+      .col-left {
+        padding-right: 20px;
+        width: 66.666%;
+        @media #{$md-device} {
+          padding-right: 10px;
+        }
+        @media #{$sm-device} {
+          margin-bottom: 70px;
+          padding-right: 0;
+          width: 100%;
+        }
+      }
+      .col-right {
+        padding-left: 20px;
+        width: 33.333%;
+        @media #{$sm-device} {
+          padding-left: 0;
+          width: 100%;
+        }
+      }
+    }
+  }
+
+  .product-area {
+    &.product-style1-area {
+      .container {
+        @media (max-width:1599px) {
+          padding: 0 60px;
+        }
+        @media #{$lg-device} {
+          padding: 0 15px;
+        }
+      }
+      .product-items-style3 {
+        .product-item {
+          .product-info {
+            .content-inner {
+              .title {
+                font-family: $font-current-theme9;
+                @media #{$lg-device} {
+                  font-size: 20px;
+                }
+              }
+              .category {
+                font-family: $font-current-theme8;
+              }
+            }
+            .prices {
+              @media #{$lg-device} {
+                top: -3px;
+              }
+              .price {
+                font-family: $font-current-theme8;
+                @media #{$lg-device} {
+                  font-size: 20px;
+                }
+              }
+            }
+          }
+        }
+      }      
+    }
+  }
+
+  .post-items {
+    &.post-items-style3 {
+      .post-item {
+        .content {
+          padding-top: 7px;
+          .inner-content {
+            .title {
+              margin-bottom: 7px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .footer-area {
+    &.default-style {
+      .footer-main {
+        .widget-item {
+          font-family: $font-current-theme8;
+          h4 {
+            font-family: $font-current-theme8;
+          }
+        }
+      }
+    }
+    &.footer-style7 {
+      .footer-main {
+        .widget-item {
+          h4 {
+            font-family: $font-current-theme8;
+          }
+        }
+      }
+    }
+  }
+}

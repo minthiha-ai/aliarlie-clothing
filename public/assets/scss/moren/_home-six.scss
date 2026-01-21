@@ -1,0 +1,88 @@
+/*
+-----------------------------------------------------------------------
+  Home Six CSS
+-----------------------------------------------------------------------
+*/
+.home-six-wrapper {
+  font-family: $font-current-theme6;
+
+  h1, h2, h3, h4, h5, h6,
+  .h1, .h2, .h3, .h4, .h5, .h6 {
+    font-family: $font-current-theme6;
+  }
+
+  .header-area {
+    &.header-default {
+      &.header-style3 {
+        .header-align {
+          @media #{$xs-device} {
+            height: 90px;
+          }
+        }
+        .btn-menu {
+          &:hover {
+            color: $theme-color;
+          }
+        }
+        .header-action-area {
+          .btn-search {
+            &:hover {
+              color: $theme-color;
+            }
+          }
+          .btn-login {
+            &:hover {
+              color: $theme-color;
+            }
+          }
+          .btn-cart {
+            .cart-count {
+              background-color: $theme-color;
+            }
+            &:hover {
+              color: $theme-color;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .section-title {
+    .subtitle {
+      font-family: $font-current-theme6;
+    }
+  }
+
+  .product-area {
+    &.product-most-viewed-area {
+      .section-title {
+        margin-bottom: 52px;
+        @media #{$lg-device} {
+          margin-bottom: 50px;
+        }
+        .title {
+          font-size: 50px;
+          font-weight: 500;
+          letter-spacing: -1px;
+          @media #{$lg-device} {
+            font-size: 38px;
+          }
+        }
+      }      
+    }
+  }
+
+  .footer-area {
+    &.footer-style6 {
+      .footer-main {
+        .widget-item {
+          font-family: $font-current-theme1;
+          h4 {
+            font-family: $font-current-theme1;
+          }
+        }
+      }
+    }
+  }
+}

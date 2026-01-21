@@ -1,0 +1,50 @@
+// Table of contents
+@import "tableofcontent";
+
+// Base
+@import "common/variables";
+@import "common/mixins";
+@import "common/rfs";
+
+// Typography
+ @import "common/typography";
+
+// Common Styles
+@import "moren/common";
+@import "moren/navbar";
+
+// Header
+@import "header/header";
+
+// Banner Styles
+@import "moren/banner";
+
+// Components
+@import "moren/about";
+@import "moren/team";
+@import "moren/gallery";
+@import "moren/testimonial";
+@import "moren/brand-logo";
+@import "moren/divider";
+@import "moren/featured";
+@import "moren/form";
+@import "moren/shop";
+
+
+
+// Blog
+@import "moren/blog";
+
+// Contact
+@import "moren/contact";
+
+// Footer
+@import "footer/footer";
+
+// Pages
+@import "moren/home-two";
+@import "moren/home-three";
+@import "moren/home-four";
+@import "moren/home-five";
+@import "moren/home-six";
+@import "moren/home-seven";

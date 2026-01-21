@@ -1,0 +1,106 @@
+/*
+-----------------------------------------------------------------------
+  Home Four CSS
+-----------------------------------------------------------------------
+*/
+.home-four-wrapper {
+  font-family: $font-current-theme1;
+
+  h1, h2, h3, h4, h5, h6,
+  .h1, .h2, .h3, .h4, .h5, .h6 {
+    font-family: $font-current-theme2;
+  }
+
+  .header-area.header-default.header-style4 {
+    .header-logo-area {
+      @media #{$xxs-device} {
+        width: 120px;
+      }
+    }
+    .header-action-area {
+      .btn-search {
+        @media #{$xxs-device} {
+          margin-right: 15px;
+        }
+      }
+    }
+  }
+
+  .section-title {
+    .subtitle {
+      font-family: $font-current-theme2;
+    }
+  }
+
+  .product-area {
+    &.new-product-area {
+      padding: 100px 0;
+      @media #{$md-device} {
+        padding: 90px 0;
+      }
+      @media #{$sm-device} {
+        padding: 70px 0;
+      }
+      .product-item {
+        margin-bottom: 24px;
+      }
+      .btn-theme {
+        margin-top: 20px;
+      }
+    }
+    &.outfit-product-area {
+      .product-item {
+        margin-bottom: 30px;
+      }
+    }
+  }
+
+  .product-item {
+    .product-thumb {
+      .product-action {
+        a {
+          &:hover {
+            background-color: $theme-color6;
+          }
+        }
+      }
+      .product-action-info {
+        .content-inner {
+          .prices {
+            color: $theme-color6;
+          }
+        }
+      }
+    }
+    .product-info {
+      .content-inner {
+        .title {
+          @media #{$sm-device} {
+            font-size: 13px;
+          }
+          @media #{$xs-device} {
+            font-size: 14px;
+          }
+          a {
+            &:hover {
+              color: $theme-color6;
+            }
+          }
+        }
+        .prices {
+          .price {
+            color: $theme-color6;
+          }
+        }
+      }
+      .product-info-action {
+        a {
+          color: $theme-color6;
+          &:hover {
+            color: $black-333;
+          }
+        }
+      }
+    }
+  }
+}
