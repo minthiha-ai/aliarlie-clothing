@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Pages;
+namespace App\Filament\pages;
 
 use App\Filament\Widgets\OrderStats;
 use App\Filament\Widgets\RecentOrders;
