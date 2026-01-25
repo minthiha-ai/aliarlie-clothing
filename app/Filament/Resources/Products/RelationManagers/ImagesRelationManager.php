@@ -35,7 +35,7 @@ class ImagesRelationManager extends RelationManager
                             ->image()
                             ->required()
                             ->imageEditor()
-                            ->imageCropAspectRatio('4:5')
+                            ->imageCropAspectRatio('1:1')
                             ->disk('public')
                             ->directory('products')
                             ->maxSize(2048)

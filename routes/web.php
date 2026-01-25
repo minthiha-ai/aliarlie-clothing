@@ -48,6 +48,7 @@ Route::prefix('shop')->name('shop.')->group(function () {
         Route::get('/orders/{orderId}', [CustomerAuthController::class, 'orderShow'])->name('orders.show');
     });
     Route::get('/collections', [ShopController::class, 'collections'])->name('collections');
+    Route::get('/collection/{slug}', [ShopController::class, 'collection'])->name('collection');
     Route::get('/fullwidth', [ShopController::class, 'fullwidth'])->name('fullwidth');
 });
 

@@ -71,18 +71,19 @@
   <div class="collection-slider-content">
     <div class="swiper-container collection-slider-container">
       <div class="swiper-wrapper">
-        @forelse ($categories as $category)
+        @forelse ($collections as $collection)
           <div class="swiper-slide">
             <div class="slider-item">
               <div class="thumb">
-                <div class="bg-thumb bg-overlay bg-img" data-bg-img="{{ asset('assets/img/slider/cs1-s1.jpg') }}"></div>
+                <div class="bg-thumb bg-overlay bg-img" data-bg-img="{{ $collection->image ? \Illuminate\Support\Facades\Storage::disk('public')->url($collection->image) : asset('assets/img/slider/cs1-s1.jpg') }}"></div>
               </div>
               <div class="slider-content-area">
                 <div class="content">
                   <div class="inner-content">
                     <span>Collection</span>
-                    <h2>{{ $category->name }}</h2>
-                    <p>Explore our {{ strtolower($category->name) }} collection.</p>
+                    <h2>{{ $collection->name }}</h2>
+                    <p>{{ $collection->description ? \Illuminate\Support\Str::limit($collection->description, 80) : 'Explore our ' . strtolower($collection->name) . ' collection.' }}</p>
+                    <a href="{{ route('shop.collection', $collection->slug) }}" class="btn btn-theme">Shop Now</a>
                   </div>
                 </div>
               </div>

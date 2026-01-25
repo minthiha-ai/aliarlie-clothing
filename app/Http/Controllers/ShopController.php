@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CheckoutRequest;
 use App\Models\Banner;
 use App\Models\Category;
+use App\Models\Collection;
 use App\Models\CustomerAddress;
 use App\Models\Order;
 use App\Models\OrderAddress;
@@ -500,8 +501,54 @@ class ShopController extends Controller
     {
         $banner = $this->bannerFor('collection');
 
+        $collections = Collection::query()
+            ->where('is_active', true)
+            ->withCount('products')
+            ->with([
+                'products' => function ($query) {
+                    $query->where('is_active', true)
+                        ->with([
+                            'images' => function ($query) {
+                                $query->orderByDesc('is_primary');
+                            },
+                        ])
+                        ->limit(1);
+                },
+            ])
+            ->orderBy('sort_order')
+            ->orderBy('name')
+            ->paginate(12);
+
         return view('shop.collections', [
             'banner' => $banner,
+            'collections' => $collections,
+        ]);
+    }
+
+    public function collection($slug)
+    {
+        $banner = $this->bannerFor('collection');
+
+        $collection = Collection::query()
+            ->where('slug', $slug)
+            ->where('is_active', true)
+            ->withCount('products')
+            ->firstOrFail();
+
+        $products = $collection->products()
+            ->where('is_active', true)
+            ->with([
+                'images' => function ($query) {
+                    $query->orderByDesc('is_primary');
+                },
+                'category',
+            ])
+            ->paginate(12);
+
+        return view('shop.collection', [
+            'banner' => $banner,
+            'collection' => $collection,
+            'products' => $products,
         ]);
     }
 
@@ -527,4 +574,3 @@ class ShopController extends Controller
             ->first();
     }
 }
-
