@@ -234,6 +234,16 @@
 <!--== End Featured Area Wrapper ==-->
 @endsection
 
+@push('styles')
+  {{-- Hide decorative white lines from template CSS (h2:after and p:after in .inner-content) --}}
+  <style>
+    .home-slider-area.slider-default .slider-content-area .content .inner-content h2::after,
+    .home-slider-area.slider-default .slider-content-area .content .inner-content p::after {
+      display: none !important;
+    }
+  </style>
+@endpush
+
 @push('scripts')
   <script>
     document.addEventListener('click', function (event) {
