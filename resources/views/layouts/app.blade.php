@@ -205,7 +205,7 @@
                 <ul class="nav-menu nav">
                   <li><a href="#">PRIVACY POLICY</a></li>
                   <li><a href="#">TERMS & CONDITIONS</a></li>
-                  <li><a href="{{ route('pages.about') }}">ABOUT</a></li>
+                  {{-- <li><a href="{{ route('pages.about') }}">ABOUT</a></li> --}}
                 </ul>
               </nav>
             </div>
@@ -215,7 +215,7 @@
               <nav class="widget-menu-wrap">
                 <ul class="nav-menu nav">
                   <li><a href="#">SHIPPING INFO</a></li>
-                  <li><a href="#">RETURNS / EXCHANGES</a></li>
+                  {{-- <li><a href="#">RETURNS / EXCHANGES</a></li> --}}
                   <li><a href="{{ route('contact') }}">CONTACT</a></li>
                 </ul>
               </nav>
@@ -225,7 +225,7 @@
             <div class="widget-item widget-social-item mt-sm-30 mt-xs-20">
               <span>ON SOCIAL NETWORKS</span>
               <div class="widget-social-icons">
-                <a href="#"><i class="lastudioicon lastudioicon-b-facebook"></i></a>
+                <a href="https://www.facebook.com/aliarlieclothing" target="_blank"><i class="lastudioicon lastudioicon-b-facebook"></i></a>
                 <a href="#"><i class="lastudioicon lastudioicon-b-pinterest"></i></a>
                 <a href="#"><i class="lastudioicon lastudioicon-b-twitter"></i></a>
               </div>
