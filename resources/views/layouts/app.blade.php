@@ -52,7 +52,33 @@
     .header-area.header-default.header-style2:not(.header-transparent) .header-action-area .btn-menu { color: #333; }
     .header-area.header-default.header-style2:not(.header-transparent) .header-action-area .btn-cart .cart-count { color: #fff; }
     .header-area.header-default.header-style2:not(.header-transparent) .header-action-area .search-form .form-input-item input { color: #757575; border-color: #ddd; }
-    .header-area.header-default.header-style2:not(.header-transparent) .header-action-area .search-form .form-input-item input::placeholder { color: #757575; }</style>
+    .header-area.header-default.header-style2:not(.header-transparent) .header-action-area .search-form .form-input-item input::placeholder { color: #757575; }
+    /* Mobile off-canvas: align close + content; Account link matches nav */
+    .off-canvas-wrapper .off-canvas-inner .off-canvas-content .off-canvas-header .close-action .btn-close { left: 50px; }
+    @media (max-width: 575px) {
+      .off-canvas-wrapper .off-canvas-inner .off-canvas-content .off-canvas-header .close-action .btn-close { left: 30px; }
+    }
+    .off-canvas-account-link {
+      margin: 0;
+      padding: 30px 0 0;
+      border-top: 1px solid #e8e8e8;
+    }
+    .off-canvas-account-link a {
+      display: block;
+      color: #0A1039;
+      font-size: 18px;
+      font-weight: 400;
+      padding: 0;
+      text-transform: capitalize;
+      text-decoration: none;
+    }
+    .off-canvas-account-link a:hover { color: #ff1a1a; }
+    @media (max-width: 575px) {
+      .off-canvas-account-link { margin-top: 20px; }
+      .off-canvas-account-link { padding-top: 14px; }
+      .off-canvas-account-link a { font-size: 16px; }
+    }
+    </style>
     @stack('styles')
 </head>
 
@@ -318,6 +344,15 @@
         <div class="off-canvas-item">
           <div class="res-mobile-menu">
             <!-- Note Content Auto Generate By Jquery From Main Menu -->
+          </div>
+          <div class="off-canvas-account-link">
+            <a href="{{ route('shop.account') }}">
+              @auth('customer')
+                My Account
+              @else
+                Login / Account
+              @endauth
+            </a>
           </div>
         </div>
         <div class="off-canvas-footer"></div>
