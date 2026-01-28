@@ -41,42 +41,56 @@
     <!--== Main Style CSS ==-->
     <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet" />
 
+    <style>html, body { margin: 0; padding: 0; }
+    /* Solid header overrides – only when NOT transparent, and :not(.sticky) so sticky keeps position:fixed */
+    .header-area.header-default.header-style2:not(.header-transparent):not(.sticky) { background-color: #fff; box-shadow: 0 0 30px rgba(0,0,0,0.1); }
+    .header-area.header-default.header-style2:not(.header-transparent) .header-navigation-area .main-menu > li > a { color: #333; }
+    .header-area.header-default.header-style2:not(.header-transparent) .header-navigation-area .main-menu > li > a:after { color: #333; }
+    .header-area.header-default.header-style2:not(.header-transparent) .header-action-area .btn-search,
+    .header-area.header-default.header-style2:not(.header-transparent) .header-action-area .btn-login,
+    .header-area.header-default.header-style2:not(.header-transparent) .header-action-area .btn-cart,
+    .header-area.header-default.header-style2:not(.header-transparent) .header-action-area .btn-menu { color: #333; }
+    .header-area.header-default.header-style2:not(.header-transparent) .header-action-area .btn-cart .cart-count { color: #fff; }
+    .header-area.header-default.header-style2:not(.header-transparent) .header-action-area .search-form .form-input-item input { color: #757575; border-color: #ddd; }
+    .header-area.header-default.header-style2:not(.header-transparent) .header-action-area .search-form .form-input-item input::placeholder { color: #757575; }</style>
     @stack('styles')
 </head>
 
 <body>
 
 <!--wrapper start-->
-<div class="wrapper home-default-wrapper">
+<div class="wrapper @yield('wrapper-class', 'home-default-wrapper')">
 
   <!--== Start Preloader Content ==-->
-  <div class="preloader-wrap">
-    <div class="preloader">
-      <span class="dot"></span>
-      <div class="dots">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-    </div>
-  </div>
+  @hasSection('preloader')
+    @yield('preloader')
+  @else
+    @include('partials.preloader', [
+      'preloaderVariant' => 'logo',
+      'preloaderLogo' => asset('assets/img/logo-main.png'),
+    ])
+  @endif
   <!--== End Preloader Content ==-->
 
   <!--== Start Header Wrapper ==-->
-  <header class="header-area header-default header-style2 header-transparent sticky-header">
-    <div class="container-fluid"></div>
+  @php
+    $isHome = request()->routeIs('home');
+  @endphp
+  <header class="header-area header-default header-style2 {{ $isHome ? 'header-transparent' : '' }} sticky-header">
+    <div class="container-fluid">
       <div class="row row-gutter-0 align-items-center">
         <div class="col-12">
           <div class="header-align">
             <div class="header-align-left">
               <div class="header-logo-area">
                 <a href="{{ route('home') }}">
-                  <!-- Default: White logo for transparent header (desktop) -->
-                  <img class="logo-main d-none d-sm-block" src="{{ asset('assets/img/logo-light.png') }}" alt="ALIARLIE Logo" />
-                  <!-- Default: White logo for transparent header (mobile) -->
-                  <img class="logo-main d-sm-none" src="{{ asset('assets/img/logo-light.png') }}" alt="ALIARLIE Logo" />
-                  <!-- Sticky: Dark logo for white header -->
-                  <img class="logo-light" src="{{ asset('assets/img/logo-main.png') }}" alt="ALIARLIE Logo" />
+                  @if($isHome)
+                    <img class="logo-main" src="{{ asset('assets/img/logo-light.png') }}" alt="ALIARLIE Logo" />
+                    <img class="logo-light" src="{{ asset('assets/img/logo-main.png') }}" alt="ALIARLIE Logo" />
+                  @else
+                    <img class="logo-main" src="{{ asset('assets/img/logo-main.png') }}" alt="ALIARLIE Logo" />
+                    <img class="logo-light" src="{{ asset('assets/img/logo-main.png') }}" alt="ALIARLIE Logo" />
+                  @endif
                 </a>
               </div>
               <div class="header-navigation-area d-none d-xl-block">
