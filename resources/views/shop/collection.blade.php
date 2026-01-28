@@ -165,13 +165,7 @@
                 </div>
               </div>
             </div>
-            @if($products->hasPages())
-              <div class="pagination-area">
-                <div class="d-flex justify-content-center">
-                  {{ $products->links() }}
-                </div>
-              </div>
-            @endif
+            @include('partials.pagination', ['paginator' => $products])
           </div>
         </div>
       </div>

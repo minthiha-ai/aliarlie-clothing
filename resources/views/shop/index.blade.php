@@ -17,7 +17,7 @@
       <div class="row">
         <div class="col-lg-12">
           <div class="page-title-content">
-            <h2 class="title">Shop Fullwidth</h2>
+            <h2 class="title">{{ $banner->title ?? 'Shop' }}</h2>
             <div class="bread-crumbs">
               <a href="{{ route('home') }}">Home<span class="breadcrumb-sep">></span></a>
               <span class="active">Shop</span>
@@ -65,7 +65,7 @@
                 </ul>
               </div>
             </div>
-            <div class="widget">
+            {{-- <div class="widget">
               <h4 class="widget-title">By price</h4>
               <div class="widget-price-filter">
                 <div class="slider-range" id="slider-range"></div>
@@ -81,8 +81,8 @@
                 </div>
                 <a class="btn-filter" href="{{ route('shop.index') }}">Filter</a>
               </div>
-            </div>
-            <div class="widget">
+            </div> --}}
+            {{-- <div class="widget">
               <h4 class="widget-title">By Color</h4>
               <div class="widget-color-menu">
                 <ul>
@@ -136,7 +136,7 @@
                   @endforeach
                 </div>
               </div>
-            </div>
+            </div> --}}
           </div>
         </div>
         <div class="col-lg-9 order-0 order-lg-1">
@@ -286,11 +286,7 @@
                 </div>
               </div>
             </div>
-            <div class="pagination-area">
-              <div class="d-flex justify-content-center">
-                {{ $products->links() }}
-              </div>
-            </div>
+            @include('partials.pagination', ['paginator' => $products])
           </div>
         </div>
       </div>

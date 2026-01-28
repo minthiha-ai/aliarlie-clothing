@@ -79,10 +79,8 @@
     </div>
     @if($collections->hasPages())
       <div class="row">
-        <div class="col-12">
-          <div class="pagination-area text-center mt-5">
-            {{ $collections->links() }}
-          </div>
+        <div class="col-12 text-center mt-5">
+          @include('partials.pagination', ['paginator' => $collections])
         </div>
       </div>
     @endif
