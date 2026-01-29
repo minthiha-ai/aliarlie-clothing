@@ -43,7 +43,12 @@ Route::prefix('shop')->name('shop.')->group(function () {
             ->name('verification.send');
         Route::post('/account/profile', [CustomerAuthController::class, 'updateProfile'])
             ->name('account.profile.update');
+        Route::get('/account/addresses', [CustomerAuthController::class, 'addresses'])->name('account.addresses');
         Route::post('/account/addresses', [CustomerAuthController::class, 'storeAddress'])->name('account.addresses.store');
+        Route::get('/account/payments', [CustomerAuthController::class, 'payments'])->name('account.payments');
+        Route::get('/account/returns', [CustomerAuthController::class, 'returns'])->name('account.returns');
+        Route::get('/account/cancellations', [CustomerAuthController::class, 'cancellations'])->name('account.cancellations');
+        Route::get('/account/reviews', [CustomerAuthController::class, 'reviews'])->name('account.reviews');
         Route::get('/orders', [CustomerAuthController::class, 'ordersIndex'])->name('orders.index');
         Route::get('/orders/{orderId}', [CustomerAuthController::class, 'orderShow'])->name('orders.show');
     });

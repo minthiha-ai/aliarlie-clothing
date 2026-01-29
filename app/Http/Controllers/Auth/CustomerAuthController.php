@@ -43,7 +43,7 @@ class CustomerAuthController extends Controller
                 ->find($customer->id);
 
             $orders = $customer?->orders()
-                ->with(['items.productVariant.product'])
+                ->with(['items.productVariant.product.images'])
                 ->latest()
                 ->limit(5)
                 ->get() ?? collect();
@@ -412,6 +412,134 @@ class CustomerAuthController extends Controller
 
         return view('shop.orders.show', [
             'order' => $order,
+            'banner' => $banner,
+        ]);
+    }
+
+    public function addresses(): View
+    {
+        $banner = Banner::query()
+            ->where('is_active', true)
+            ->where(function ($query) {
+                $query
+                    ->whereIn('page', ['account', 'default'])
+                    ->orWhereNull('page');
+            })
+            ->latest()
+            ->first();
+
+        /** @var Customer|null $customer */
+        $customer = Auth::guard('customer')->user();
+
+        if (! $customer) {
+            abort(403);
+        }
+
+        $addresses = $customer->addresses()->latest()->get();
+
+        return view('shop.account.addresses', [
+            'customer' => $customer,
+            'addresses' => $addresses,
+            'banner' => $banner,
+        ]);
+    }
+
+    public function payments(): View
+    {
+        $banner = Banner::query()
+            ->where('is_active', true)
+            ->where(function ($query) {
+                $query
+                    ->whereIn('page', ['account', 'default'])
+                    ->orWhereNull('page');
+            })
+            ->latest()
+            ->first();
+
+        /** @var Customer|null $customer */
+        $customer = Auth::guard('customer')->user();
+
+        if (! $customer) {
+            abort(403);
+        }
+
+        return view('shop.account.payments', [
+            'customer' => $customer,
+            'banner' => $banner,
+        ]);
+    }
+
+    public function returns(): View
+    {
+        $banner = Banner::query()
+            ->where('is_active', true)
+            ->where(function ($query) {
+                $query
+                    ->whereIn('page', ['account', 'default'])
+                    ->orWhereNull('page');
+            })
+            ->latest()
+            ->first();
+
+        /** @var Customer|null $customer */
+        $customer = Auth::guard('customer')->user();
+
+        if (! $customer) {
+            abort(403);
+        }
+
+        return view('shop.account.returns', [
+            'customer' => $customer,
+            'banner' => $banner,
+        ]);
+    }
+
+    public function cancellations(): View
+    {
+        $banner = Banner::query()
+            ->where('is_active', true)
+            ->where(function ($query) {
+                $query
+                    ->whereIn('page', ['account', 'default'])
+                    ->orWhereNull('page');
+            })
+            ->latest()
+            ->first();
+
+        /** @var Customer|null $customer */
+        $customer = Auth::guard('customer')->user();
+
+        if (! $customer) {
+            abort(403);
+        }
+
+        return view('shop.account.cancellations', [
+            'customer' => $customer,
+            'banner' => $banner,
+        ]);
+    }
+
+    public function reviews(): View
+    {
+        $banner = Banner::query()
+            ->where('is_active', true)
+            ->where(function ($query) {
+                $query
+                    ->whereIn('page', ['account', 'default'])
+                    ->orWhereNull('page');
+            })
+            ->latest()
+            ->first();
+
+        /** @var Customer|null $customer */
+        $customer = Auth::guard('customer')->user();
+
+        if (! $customer) {
+            abort(403);
+        }
+
+        return view('shop.account.reviews', [
+            'customer' => $customer,
             'banner' => $banner,
         ]);
     }
