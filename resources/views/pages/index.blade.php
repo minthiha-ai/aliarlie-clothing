@@ -158,9 +158,9 @@
                 </div>
               </div>
               <div class="product-info-action">
-                <a class="action-wishlist ht-tooltip" data-tippy-content="Add to wishlist" href="{{ route('shop.wishlist') }}" title="Add to wishlist">
+                {{-- <a class="action-wishlist ht-tooltip" data-tippy-content="Add to wishlist" href="{{ route('shop.wishlist') }}" title="Add to wishlist">
                   <i class="lastudioicon-heart-2"></i>
-                </a>
+                </a> --}}
                 <button
                   class="action-cart ht-tooltip js-add-to-cart"
                   data-tippy-content="Add to cart"
@@ -269,6 +269,24 @@
       .home-slider-area.slider-default .slider-content-area .content .inner-content .slider-title {
         font-size: 2.75rem;
       }
+    }
+    /* Match .product-info-action a styles for add-to-cart button */
+    .product-item .product-info-action button.action-cart {
+      background: none;
+      border: none;
+      color: inherit;
+      cursor: pointer;
+      font-size: 18px;
+      line-height: 20px;
+      margin: 2.5px;
+      padding: 0;
+      vertical-align: middle;
+    }
+    .product-item .product-info-action button.action-cart:last-child {
+      margin-right: 0;
+    }
+    .product-item .product-info-action button.action-cart:hover {
+      color: #ff1a1a;
     }
   </style>
 @endpush

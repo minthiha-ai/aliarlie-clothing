@@ -39,6 +39,15 @@
               <div class="widget widget-search-mobile">
                 <div class="widget-search-box">
                   <form action="{{ route('shop.index') }}" method="get">
+                    @if (request('category'))
+                      <input type="hidden" name="category" value="{{ request('category') }}">
+                    @endif
+                    @if (request('per_page'))
+                      <input type="hidden" name="per_page" value="{{ request('per_page') }}">
+                    @endif
+                    @if (request('sort'))
+                      <input type="hidden" name="sort" value="{{ request('sort') }}">
+                    @endif
                     <div class="form-input-item">
                       <label for="search2" class="sr-only">Search Here</label>
                       <input type="text" id="search2" name="search" placeholder="Search…" value="{{ request('search') }}">
@@ -56,7 +65,7 @@
                     <ul>
                       @forelse ($categories as $category)
                         <li>
-                          <a href="{{ route('shop.index', ['category' => $category->id]) }}">
+                          <a href="{{ route('shop.index', array_merge(request()->only(['search', 'per_page', 'sort']), ['category' => $category->id])) }}">
                             <span class="cat-name">{{ $category->name }}</span>
                             <span class="cat-count">({{ $category->products_count }})</span>
                           </a>
@@ -145,6 +154,14 @@
         </div>
         <div class="col-lg-9 order-1 order-lg-1">
           <div class="inner-left-padding">
+            @php
+              $shopQuery = request()->only(['search', 'category', 'per_page', 'sort']);
+              $currentPerPage = (int) (request('per_page', 12));
+              $currentPerPage = in_array($currentPerPage, [12, 15, 30], true) ? $currentPerPage : 12;
+              $currentSort = request('sort', 'default');
+              $currentSort = in_array($currentSort, ['default', 'latest', 'oldest', 'lowest_price', 'highest_price'], true) ? $currentSort : 'default';
+              $sortLabels = ['default' => 'Default', 'latest' => 'Latest', 'oldest' => 'Oldest', 'lowest_price' => 'Lowest price', 'highest_price' => 'Highest price'];
+            @endphp
             <div class="shop-toolbar-wrap shop-toolbar-mobile-wrap">
               <div class="shop-toolbar-left">
                 <div class="product-showing-status">
@@ -155,27 +172,27 @@
               </div>
               <div class="shop-toolbar-right">
                 <div class="product-sorting-menu product-view-count d-none d-md-block">
-                  <span class="current">Show 12 <i class="lastudioicon-down-arrow"></i></span>
+                  <span class="current">Show {{ $currentPerPage }} <i class="lastudioicon-down-arrow"></i></span>
                   <ul>
-                    <li class="active"><a href="{{ route('shop.index') }}" class="active">Show 12</a></li>
-                    <li><a href="{{ route('shop.index') }}">Show 15</a></li>
-                    <li><a href="{{ route('shop.index') }}">Show 30</a></li>
+                    @foreach ([12, 15, 30] as $n)
+                      <li class="{{ $currentPerPage === $n ? 'active' : '' }}"><a href="{{ route('shop.index', array_merge($shopQuery, ['per_page' => $n])) }}" class="{{ $currentPerPage === $n ? 'active' : '' }}">Show {{ $n }}</a></li>
+                    @endforeach
                   </ul>
                 </div>
                 <div class="product-sorting-menu product-view-count d-none d-md-block">
                   <span class="current">Filters <i class="lastudioicon-down-arrow"></i></span>
                   <ul>
-                    <li class="active"><a href="{{ route('shop.index') }}" class="active">Filters</a></li>
-                    <li><a href="{{ route('shop.index') }}">Categories</a></li>
-                    <li><a href="{{ route('shop.index') }}">Tags</a></li>
+                    <li class="{{ ! request('category') ? 'active' : '' }}"><a href="{{ route('shop.index', request()->only(['search', 'per_page', 'sort'])) }}" class="{{ ! request('category') ? 'active' : '' }}">All</a></li>
+                    <li><a href="{{ route('shop.index', $shopQuery) }}">Categories</a></li>
+                    <li><a href="{{ route('shop.index', $shopQuery) }}">Tags</a></li>
                   </ul>
                 </div>
                 <div class="product-sorting-menu product-sorting">
-                  <span class="current">Sort <i class="lastudioicon-down-arrow"></i></span>
+                  <span class="current">{{ $sortLabels[$currentSort] }} <i class="lastudioicon-down-arrow"></i></span>
                   <ul>
-                    <li class="active"><a href="{{ route('shop.index') }}" class="active">Default</a></li>
-                    <li><a href="{{ route('shop.index') }}">Popularity</a></li>
-                    <li><a href="{{ route('shop.index') }}">Latest</a></li>
+                    @foreach ($sortLabels as $value => $label)
+                      <li class="{{ $currentSort === $value ? 'active' : '' }}"><a href="{{ route('shop.index', array_merge($shopQuery, ['sort' => $value])) }}" class="{{ $currentSort === $value ? 'active' : '' }}">{{ $label }}</a></li>
+                    @endforeach
                   </ul>
                 </div>
                 <div class="product-view-mode product-view-mode-mobile">
@@ -215,7 +232,7 @@
                                 <i class="lastudioicon-shopping-cart-3"></i>
                               </button>
                             </form>
-                            <a class="action-quick-view ht-tooltip" data-tippy-content="Quick View" href="javascript:void(0);" title="Quick View">
+                            {{-- <a class="action-quick-view ht-tooltip" data-tippy-content="Quick View" href="javascript:void(0);" title="Quick View">
                               <i class="lastudioicon-search-zoom-in"></i>
                             </a>
                             <a class="action-wishlist ht-tooltip" data-tippy-content="Add to wishlist" href="{{ route('shop.wishlist') }}" title="Add to wishlist">
@@ -223,7 +240,7 @@
                             </a>
                             <a class="action-compare ht-tooltip" data-tippy-content="Add to compare" href="{{ route('shop.compare') }}" title="Add to compare">
                               <i class="lastudioicon-compare"></i>
-                            </a>
+                            </a> --}}
                           </div>
                         </div>
                         <div class="product-info info-style2">
@@ -454,6 +471,42 @@
       .shop-sidebar-area .categories-summary::-webkit-details-marker,
       .shop-sidebar-area .categories-summary::marker { display: none !important; }
       .shop-sidebar-area .categories-summary::after { display: none !important; }
+    }
+    /* Match .product-action a styles for add-to-cart button (no wrapper so class works) */
+    .product-item .product-thumb .product-action button.action-cart {
+      background-color: #fff;
+      border: none;
+      color: #333;
+      cursor: pointer;
+      display: inline-block;
+      font-size: 16px;
+      height: 44px;
+      line-height: 44px;
+      margin: 0 2.5px;
+      opacity: 0;
+      padding: 0;
+      position: relative;
+      text-align: center;
+      visibility: hidden;
+      width: 44px;
+      transform: translate(0, 40px);
+      transition: all 0.3s ease;
+    }
+    .product-item .product-thumb .product-action button.action-cart i {
+      margin: 0;
+    }
+    .product-item .product-thumb .product-action.action-style3 button.action-cart {
+      background-color: #333;
+      color: #fff;
+    }
+    .product-item .product-thumb .product-action.action-style3 button.action-cart:hover {
+      background-color: #A64637;
+      color: #fff;
+    }
+    .product-item:hover .product-thumb .product-action button.action-cart {
+      opacity: 1;
+      visibility: visible;
+      transform: translate(0, 0);
     }
   </style>
 @endpush

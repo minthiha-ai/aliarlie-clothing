@@ -61,6 +61,13 @@ class BannerForm
                             ->rows(3)
                             ->placeholder('Optional short description for this banner')
                             ->columnSpanFull(),
+                        TextInput::make('sort_order')
+                            ->label('Sort Order')
+                            ->numeric()
+                            ->minValue(0)
+                            ->default(0)
+                            ->helperText('Lower numbers appear first.')
+                            ->columnSpan(1),
                     ])
                     ->columns(2)
                     ->columnSpanFull(),

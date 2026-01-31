@@ -3,8 +3,8 @@
 namespace App\Filament\Resources\Products\Schemas;
 
 use Filament\Forms\Components\Select;
-use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
@@ -63,6 +63,12 @@ class ProductForm
                         Toggle::make('is_featured')
                             ->label('Featured')
                             ->default(false),
+                        TextInput::make('sort_order')
+                            ->label('Sort Order')
+                            ->numeric()
+                            ->minValue(0)
+                            ->default(0)
+                            ->helperText('Lower numbers appear first.'),
                     ])
                     ->columns(2)
                     ->columnSpanFull(),

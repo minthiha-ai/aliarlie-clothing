@@ -16,6 +16,10 @@ class CategoriesTable
     {
         return $table
             ->columns([
+                TextColumn::make('sort_order')
+                    ->label('Order')
+                    ->sortable()
+                    ->alignCenter(),
                 TextColumn::make('name')
                     ->searchable(),
                 TextColumn::make('slug')
@@ -42,6 +46,7 @@ class CategoriesTable
                 BulkActionGroup::make([
                     DeleteBulkAction::make(),
                 ]),
-            ]);
+            ])
+            ->defaultSort('sort_order');
     }
 }

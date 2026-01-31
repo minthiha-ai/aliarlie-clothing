@@ -173,3 +173,44 @@
   </section>
   <!--== End Product Area Wrapper ==-->
 @endsection
+
+@push('styles')
+  <style>
+    /* Match .product-action a styles for add-to-cart button (no wrapper so class works) */
+    .product-item .product-thumb .product-action button.action-cart {
+      background-color: #fff;
+      border: none;
+      color: #333;
+      cursor: pointer;
+      display: inline-block;
+      font-size: 16px;
+      height: 44px;
+      line-height: 44px;
+      margin: 0 2.5px;
+      opacity: 0;
+      padding: 0;
+      position: relative;
+      text-align: center;
+      visibility: hidden;
+      width: 44px;
+      transform: translate(0, 40px);
+      transition: all 0.3s ease;
+    }
+    .product-item .product-thumb .product-action button.action-cart i {
+      margin: 0;
+    }
+    .product-item .product-thumb .product-action.action-style3 button.action-cart {
+      background-color: #333;
+      color: #fff;
+    }
+    .product-item .product-thumb .product-action.action-style3 button.action-cart:hover {
+      background-color: #A64637;
+      color: #fff;
+    }
+    .product-item:hover .product-thumb .product-action button.action-cart {
+      opacity: 1;
+      visibility: visible;
+      transform: translate(0, 0);
+    }
+  </style>
+@endpush

@@ -18,12 +18,14 @@ class HomeController extends Controller
                     ->whereIn('page', ['home', 'default'])
                     ->orWhereNull('page');
             })
+            ->orderBy('sort_order')
             ->latest()
             ->limit(5)
             ->get();
 
         $categories = Category::query()
             ->where('is_active', true)
+            ->orderBy('sort_order')
             ->orderBy('name')
             ->get();
 
@@ -42,6 +44,7 @@ class HomeController extends Controller
                     $query->orderByDesc('is_primary');
                 },
             ])
+            ->orderBy('sort_order')
             ->latest()
             ->limit(6)
             ->get();

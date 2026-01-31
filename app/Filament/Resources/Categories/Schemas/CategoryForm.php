@@ -43,6 +43,13 @@ class CategoryForm
                             ->default(true)
                             ->inline(false)
                             ->columnSpan(1),
+                        TextInput::make('sort_order')
+                            ->label('Sort Order')
+                            ->numeric()
+                            ->minValue(0)
+                            ->default(0)
+                            ->helperText('Lower numbers appear first.')
+                            ->columnSpan(1),
                     ])
                     ->columns(2)
                     ->columnSpanFull(),

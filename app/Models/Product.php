@@ -22,6 +22,7 @@ class Product extends Model
         'is_active',
         'instock',
         'is_featured',
+        'sort_order',
     ];
 
     protected function casts(): array
@@ -32,6 +33,7 @@ class Product extends Model
             'is_active' => 'boolean',
             'instock' => 'boolean',
             'is_featured' => 'boolean',
+            'sort_order' => 'integer',
         ];
     }
 

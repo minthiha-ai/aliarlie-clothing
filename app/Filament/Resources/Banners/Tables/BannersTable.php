@@ -16,6 +16,10 @@ class BannersTable
     {
         return $table
             ->columns([
+                TextColumn::make('sort_order')
+                    ->label('Order')
+                    ->sortable()
+                    ->alignCenter(),
                 TextColumn::make('title')
                     ->searchable(),
                 TextColumn::make('page')
@@ -45,6 +49,7 @@ class BannersTable
                 BulkActionGroup::make([
                     DeleteBulkAction::make(),
                 ]),
-            ]);
+            ])
+            ->defaultSort('sort_order');
     }
 }

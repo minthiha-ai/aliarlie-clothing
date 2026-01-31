@@ -34,7 +34,7 @@
   <!--== End Page Title Area ==-->
 
   <!--== Start Shop Area ==-->
-  <section class="product-area shop-single-product">
+  <section class="product-area shop-single-product mt-5">
     <div class="container">
       <div class="row">
         <div class="col-lg-6">
@@ -132,11 +132,6 @@
               @endif
             </form>
 
-            <div class="action-bottom mt-3">
-              <a class="btn-wishlist" href="{{ route('shop.wishlist') }}"><i class="labtn-icon labtn-icon-wishlist"></i>Add to wishlist</a>
-              <a class="btn-compare" href="{{ route('shop.compare') }}"><i class="labtn-icon labtn-icon-compare"></i>Add to compare</a>
-            </div>
-
             @if ($product->category)
               <div class="product-categorys mt-4">
                 <div class="product-category">
@@ -191,3 +186,84 @@
     </section>
   @endif
 @endsection
+
+@push('styles')
+  <style>
+    /* Product page: quantity + Add to cart – compact and clean */
+    .single-product-info .quick-product-action .action-top {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+    .single-product-info .quick-product-action .action-top .pro-qty-area {
+      margin-right: 0;
+      border: 1px solid #e0e0e0;
+      border-radius: 6px;
+      overflow: hidden;
+      background: #fff;
+    }
+    .single-product-info .quick-product-action .action-top .pro-qty-area .pro-qty {
+      min-height: 38px;
+    }
+    .single-product-info .quick-product-action .action-top .pro-qty-area .pro-qty input {
+      width: 64px;
+      height: 38px;
+      font-size: 14px;
+      font-weight: 500;
+      padding: 0 26px;
+      border: none;
+      background: transparent;
+      color: #333;
+      text-align: center;
+      -moz-appearance: textfield;
+    }
+    .single-product-info .quick-product-action .action-top .pro-qty-area .pro-qty input::-webkit-outer-spin-button,
+    .single-product-info .quick-product-action .action-top .pro-qty-area .pro-qty input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    .single-product-info .quick-product-action .action-top .pro-qty-area .pro-qty .qty-btn {
+      font-size: 15px;
+      line-height: 38px;
+      width: 26px;
+      height: 38px;
+      color: #666;
+      text-decoration: none;
+      transition: color 0.2s, background 0.2s;
+    }
+    .single-product-info .quick-product-action .action-top .pro-qty-area .pro-qty .qty-btn:hover {
+      color: #333;
+      background: #f5f5f5;
+    }
+    .single-product-info .quick-product-action .action-top .btn-theme.btn-black {
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 1.35;
+      padding: 10px 28px;
+      min-width: 160px;
+      height: 38px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 6px;
+      border: none;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      transition: background-color 0.2s, box-shadow 0.2s;
+    }
+    .single-product-info .quick-product-action .action-top .btn-theme.btn-black:hover {
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    }
+    @media (max-width: 575.98px) {
+      .single-product-info .quick-product-action .action-top {
+        gap: 10px;
+        margin-bottom: 20px;
+      }
+      .single-product-info .quick-product-action .action-top .btn-theme.btn-black {
+        min-width: 100%;
+        flex: 1 1 100%;
+      }
+    }
+  </style>
+@endpush

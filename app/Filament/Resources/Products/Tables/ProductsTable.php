@@ -15,6 +15,10 @@ class ProductsTable
     {
         return $table
             ->columns([
+                TextColumn::make('sort_order')
+                    ->label('Order')
+                    ->sortable()
+                    ->alignCenter(),
                 TextColumn::make('category.name')
                     ->searchable(),
                 TextColumn::make('name')
@@ -52,6 +56,7 @@ class ProductsTable
                 BulkActionGroup::make([
                     DeleteBulkAction::make(),
                 ]),
-            ]);
+            ])
+            ->defaultSort('sort_order');
     }
 }

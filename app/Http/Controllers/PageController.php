@@ -30,6 +30,7 @@ class PageController extends Controller
                     ->whereIn('page', ['contact', 'default'])
                     ->orWhereNull('page');
             })
+            ->orderBy('sort_order')
             ->latest()
             ->first();
 

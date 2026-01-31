@@ -11,8 +11,8 @@ use App\Models\Banner;
 use App\Models\Customer;
 use App\Models\CustomerAddress;
 use Illuminate\Auth\Events\Verified;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -30,6 +30,7 @@ class CustomerAuthController extends Controller
                     ->whereIn('page', ['account', 'default'])
                     ->orWhereNull('page');
             })
+            ->orderBy('sort_order')
             ->latest()
             ->first();
 
@@ -197,6 +198,7 @@ class CustomerAuthController extends Controller
                     ->whereIn('page', ['account', 'default'])
                     ->orWhereNull('page');
             })
+            ->orderBy('sort_order')
             ->latest()
             ->first();
 
@@ -366,6 +368,7 @@ class CustomerAuthController extends Controller
                     ->whereIn('page', ['account', 'default'])
                     ->orWhereNull('page');
             })
+            ->orderBy('sort_order')
             ->latest()
             ->first();
 
@@ -396,6 +399,7 @@ class CustomerAuthController extends Controller
                     ->whereIn('page', ['account', 'default'])
                     ->orWhereNull('page');
             })
+            ->orderBy('sort_order')
             ->latest()
             ->first();
 
@@ -425,6 +429,7 @@ class CustomerAuthController extends Controller
                     ->whereIn('page', ['account', 'default'])
                     ->orWhereNull('page');
             })
+            ->orderBy('sort_order')
             ->latest()
             ->first();
 
@@ -453,6 +458,7 @@ class CustomerAuthController extends Controller
                     ->whereIn('page', ['account', 'default'])
                     ->orWhereNull('page');
             })
+            ->orderBy('sort_order')
             ->latest()
             ->first();
 
@@ -478,6 +484,7 @@ class CustomerAuthController extends Controller
                     ->whereIn('page', ['account', 'default'])
                     ->orWhereNull('page');
             })
+            ->orderBy('sort_order')
             ->latest()
             ->first();
 
@@ -503,6 +510,7 @@ class CustomerAuthController extends Controller
                     ->whereIn('page', ['account', 'default'])
                     ->orWhereNull('page');
             })
+            ->orderBy('sort_order')
             ->latest()
             ->first();
 
@@ -528,6 +536,7 @@ class CustomerAuthController extends Controller
                     ->whereIn('page', ['account', 'default'])
                     ->orWhereNull('page');
             })
+            ->orderBy('sort_order')
             ->latest()
             ->first();
 

@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\DB;
 
 class ShopController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $banner = $this->bannerFor('shop');
         $categories = Category::query()
@@ -29,17 +29,48 @@ class ShopController extends Controller
             ->withCount(['products' => function ($query) {
                 $query->where('is_active', true);
             }])
+            ->orderBy('sort_order')
             ->orderBy('name')
             ->get();
-        $products = Product::query()
+
+        $perPage = (int) $request->input('per_page', 12);
+        if (! in_array($perPage, [12, 15, 30], true)) {
+            $perPage = 12;
+        }
+        $sort = $request->input('sort', 'default');
+        $allowedSorts = ['default', 'latest', 'oldest', 'lowest_price', 'highest_price'];
+        if (! in_array($sort, $allowedSorts, true)) {
+            $sort = 'default';
+        }
+
+        $productsQuery = Product::query()
             ->where('is_active', true)
             ->with([
                 'images' => function ($query) {
                     $query->orderByDesc('is_primary');
                 },
-            ])
-            ->latest()
-            ->paginate(12);
+            ]);
+
+        if ($request->filled('category')) {
+            $productsQuery->where('category_id', $request->input('category'));
+        }
+        if ($request->filled('search')) {
+            $term = $request->input('search');
+            $productsQuery->where(function ($query) use ($term): void {
+                $query->where('name', 'like', '%'.$term.'%')
+                    ->orWhere('description', 'like', '%'.$term.'%');
+            });
+        }
+
+        match ($sort) {
+            'latest' => $productsQuery->latest(),
+            'oldest' => $productsQuery->oldest(),
+            'lowest_price' => $productsQuery->orderBy('price'),
+            'highest_price' => $productsQuery->orderByDesc('price'),
+            default => $productsQuery->orderBy('sort_order')->latest(),
+        };
+
+        $products = $productsQuery->paginate($perPage)->withQueryString();
 
         return view('shop.index', compact('products', 'banner', 'categories'));
     }
@@ -65,6 +96,7 @@ class ShopController extends Controller
                     $query->orderByDesc('is_primary');
                 },
             ])
+            ->orderBy('sort_order')
             ->latest()
             ->limit(4)
             ->get();
@@ -570,6 +602,7 @@ class ShopController extends Controller
                     ->whereIn('page', [$page, 'default'])
                     ->orWhereNull('page');
             })
+            ->orderBy('sort_order')
             ->latest()
             ->first();
     }
