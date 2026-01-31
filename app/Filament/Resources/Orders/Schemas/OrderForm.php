@@ -2,12 +2,15 @@
 
 namespace App\Filament\Resources\Orders\Schemas;
 
+use App\Models\Township;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Utilities\Get;
+use Filament\Schemas\Components\View;
 use Filament\Schemas\Schema;
+use Illuminate\Database\Eloquent\Model;
 
 class OrderForm
 {
@@ -58,8 +61,50 @@ class OrderForm
                             ->prefix('MMK ')
                             ->default(0)
                             ->disabled()
-                            ->dehydrated(true)
-                            ->helperText('Calculated from order items.')
+                            ->dehydrated(false)
+                            ->helperText('Order items subtotal + delivery fees (recalculated on save).')
+                            ->columnSpan(1),
+                    ])
+                    ->columns(2)
+                    ->columnSpanFull(),
+
+                Section::make('Delivery')
+                    ->description('Delivery address and fees. Total amount = items subtotal + delivery fees.')
+                    ->schema([
+                        Select::make('state_region_id')
+                            ->label('State / Region')
+                            ->relationship('stateRegion', 'name')
+                            ->searchable()
+                            ->preload()
+                            ->live()
+                            ->afterStateUpdated(fn (callable $set): mixed => $set('township_id', null))
+                            ->columnSpan(1),
+
+                        Select::make('township_id')
+                            ->label('Township')
+                            ->options(function (Get $get): array {
+                                $stateRegionId = $get('state_region_id');
+                                if (! $stateRegionId) {
+                                    return [];
+                                }
+
+                                return Township::query()
+                                    ->where('state_region_id', $stateRegionId)
+                                    ->orderBy('name')
+                                    ->pluck('name', 'id')
+                                    ->all();
+                            })
+                            ->searchable()
+                            ->preload()
+                            ->live()
+                            ->columnSpan(1),
+
+                        TextInput::make('delivery_fees')
+                            ->label('Delivery Fees (MMK)')
+                            ->numeric()
+                            ->prefix('MMK ')
+                            ->minValue(0)
+                            ->default(0)
                             ->columnSpan(1),
                     ])
                     ->columns(2)
@@ -84,6 +129,10 @@ class OrderForm
                 Section::make('Online Payment Details')
                     ->description('Required only for online payments.')
                     ->schema([
+                        View::make('filament.orders.payment-proof-preview')
+                            ->visible(fn (?Model $record, Get $get): bool => $record && filled($record->payment_proof_photo ?? null) && $get('payment_method') === 'online_payment')
+                            ->columnSpanFull(),
+
                         Select::make('payment_id')
                             ->label('Payment Account')
                             ->relationship('payment', 'name')
@@ -97,11 +146,11 @@ class OrderForm
                             ->image()
                             ->disk('public')
                             ->directory('payments/proofs')
-                            ->imagePreviewHeight('150')
+                            ->imagePreviewHeight('200')
                             ->imageEditor()
                             ->maxSize(2048)
                             ->required()
-                            ->helperText('Upload transfer screenshot (max 2MB).')
+                            ->helperText('Upload transfer screenshot (max 2MB). Click image above to view full size.')
                             ->columnSpan(1),
                     ])
                     ->columns(2)

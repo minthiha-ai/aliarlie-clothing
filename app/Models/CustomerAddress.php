@@ -15,6 +15,8 @@ class CustomerAddress extends Model
         'receiver_name',
         'phone',
         'address',
+        'state_region_id',
+        'township_id',
         'township',
         'city',
     ];
@@ -22,5 +24,15 @@ class CustomerAddress extends Model
     public function customer(): BelongsTo
     {
         return $this->belongsTo(Customer::class);
+    }
+
+    public function stateRegion(): BelongsTo
+    {
+        return $this->belongsTo(StateRegion::class);
+    }
+
+    public function townshipRelation(): BelongsTo
+    {
+        return $this->belongsTo(Township::class, 'township_id');
     }
 }

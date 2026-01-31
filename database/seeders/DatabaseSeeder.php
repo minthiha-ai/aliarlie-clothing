@@ -39,6 +39,10 @@ class DatabaseSeeder extends Seeder
 
         $this->call(ContactInfoSeeder::class);
 
+        $this->call(StateRegionSeeder::class);
+        $this->call(TownshipSeeder::class);
+        $this->call(DeliveryInfoSeeder::class);
+
         $payments = Payment::factory()->count(3)->create();
         $categories = Category::factory()->count(5)->create();
 

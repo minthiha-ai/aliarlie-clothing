@@ -123,18 +123,25 @@
               </div>
               <div class="col-md-6">
                 <div class="form-group">
-                  <label for="township" class="form-label">Township *</label>
-                  <input type="text" class="form-control @error('township') is-invalid @enderror" id="township" name="township" value="{{ old('township') }}" required>
-                  @error('township')
+                  <label for="state_region_id" class="form-label">State / Region *</label>
+                  <select class="form-select @error('state_region_id') is-invalid @enderror" id="state_region_id" name="state_region_id" required>
+                    <option value="">Select State / Region</option>
+                    @foreach ($stateRegions as $region)
+                      <option value="{{ $region->id }}" @selected(old('state_region_id') == $region->id)>{{ $region->name }}</option>
+                    @endforeach
+                  </select>
+                  @error('state_region_id')
                     <div class="invalid-feedback">{{ $message }}</div>
                   @enderror
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-group">
-                  <label for="city" class="form-label">City *</label>
-                  <input type="text" class="form-control @error('city') is-invalid @enderror" id="city" name="city" value="{{ old('city') }}" required>
-                  @error('city')
+                  <label for="township_id" class="form-label">Township *</label>
+                  <select class="form-select @error('township_id') is-invalid @enderror" id="township_id" name="township_id" required disabled>
+                    <option value="">Select Township</option>
+                  </select>
+                  @error('township_id')
                     <div class="invalid-feedback">{{ $message }}</div>
                   @enderror
                 </div>
@@ -150,8 +157,99 @@
     </div>
   </div>
 
+@push('scripts')
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const $ = window.jQuery;
+      if (!$) return;
+
+      const stateRegionSelect = document.getElementById('state_region_id');
+      const townshipSelect = document.getElementById('township_id');
+      const townshipsUrl = '{{ route("shop.account.townships") }}';
+      const oldTownshipId = '{{ old("township_id") }}';
+
+      const select2Opts = { width: '100%', placeholder: 'Select State / Region', allowClear: true, theme: 'bootstrap-5' };
+      $(stateRegionSelect).select2(select2Opts);
+
+      function initTownshipSelect2() {
+        const opts = { width: '100%', placeholder: 'Select Township', allowClear: true, theme: 'bootstrap-5' };
+        if ($(townshipSelect).hasClass('select2-hidden-accessible')) {
+          $(townshipSelect).select2('destroy');
+        }
+        $(townshipSelect).select2(opts);
+      }
+
+      function loadTownships(stateRegionId) {
+        $(townshipSelect).empty().append('<option value="">Select Township</option>');
+        townshipSelect.disabled = true;
+        if ($(townshipSelect).hasClass('select2-hidden-accessible')) {
+          $(townshipSelect).select2('destroy');
+        }
+        if (!stateRegionId) return;
+
+        fetch(townshipsUrl + '?state_region_id=' + encodeURIComponent(stateRegionId), {
+          headers: { 'X-Requested-With': 'XMLHttpRequest', 'Accept': 'application/json' }
+        })
+          .then(res => res.json())
+          .then(townships => {
+            townships.forEach(t => {
+              const opt = document.createElement('option');
+              opt.value = t.id;
+              opt.textContent = t.name;
+              if (oldTownshipId && String(t.id) === oldTownshipId) opt.selected = true;
+              townshipSelect.appendChild(opt);
+            });
+            townshipSelect.disabled = false;
+            initTownshipSelect2();
+          })
+          .catch(() => { townshipSelect.disabled = false; });
+      }
+
+      $(stateRegionSelect).on('change', function () {
+        loadTownships(this.value);
+      });
+
+      const addModal = document.getElementById('addAddressModal');
+      if (addModal) {
+        addModal.addEventListener('show.bs.modal', function () {
+          const stateId = stateRegionSelect.value;
+          if (stateId) loadTownships(stateId);
+          else {
+            $(townshipSelect).empty().append('<option value="">Select Township</option>');
+            townshipSelect.disabled = true;
+            if ($(townshipSelect).hasClass('select2-hidden-accessible')) $(townshipSelect).select2('destroy');
+          }
+        });
+      }
+
+      if (stateRegionSelect.value) {
+        loadTownships(stateRegionSelect.value);
+      }
+    });
+  </script>
+@endpush
+
 @push('styles')
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" rel="stylesheet" />
   <style>
+    .account-dashboard-area .btn-theme.btn-black {
+      padding: 0.5rem 1.25rem;
+      font-size: 0.9rem;
+    }
+
+    #addAddressModal .modal-footer .btn {
+      padding: 0.45rem 1rem;
+      font-size: 0.9rem;
+      min-height: auto;
+    }
+
+    #addAddressModal .modal-footer .btn-theme.btn-black {
+      padding: 0.45rem 1rem;
+      font-size: 0.9rem;
+    }
+
     .account-dashboard-area {
       background-color: #f8f9fa;
       padding: 40px 0;

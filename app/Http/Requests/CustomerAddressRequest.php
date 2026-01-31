@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class CustomerAddressRequest extends FormRequest
 {
@@ -11,7 +12,7 @@ class CustomerAddressRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return (bool) $this->user('customer');
     }
 
     /**
@@ -25,8 +26,13 @@ class CustomerAddressRequest extends FormRequest
             'receiver_name' => ['required', 'string', 'max:255'],
             'phone' => ['required', 'string', 'max:50'],
             'address' => ['required', 'string', 'max:1000'],
-            'township' => ['required', 'string', 'max:255'],
-            'city' => ['required', 'string', 'max:255'],
+            'state_region_id' => ['required', 'integer', 'exists:state_regions,id'],
+            'township_id' => [
+                'required',
+                'integer',
+                'exists:townships,id',
+                Rule::exists('townships', 'id')->where('state_region_id', $this->input('state_region_id')),
+            ],
         ];
     }
 }

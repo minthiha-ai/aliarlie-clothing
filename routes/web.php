@@ -44,6 +44,7 @@ Route::prefix('shop')->name('shop.')->group(function () {
         Route::post('/account/profile', [CustomerAuthController::class, 'updateProfile'])
             ->name('account.profile.update');
         Route::get('/account/addresses', [CustomerAuthController::class, 'addresses'])->name('account.addresses');
+        Route::get('/account/townships', [CustomerAuthController::class, 'townships'])->name('account.townships');
         Route::post('/account/addresses', [CustomerAuthController::class, 'storeAddress'])->name('account.addresses.store');
         Route::get('/account/payments', [CustomerAuthController::class, 'payments'])->name('account.payments');
         Route::get('/account/returns', [CustomerAuthController::class, 'returns'])->name('account.returns');

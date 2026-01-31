@@ -10,6 +10,8 @@ use App\Http\Requests\CustomerRegisterRequest;
 use App\Models\Banner;
 use App\Models\Customer;
 use App\Models\CustomerAddress;
+use App\Models\StateRegion;
+use App\Models\Township;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
@@ -347,13 +349,18 @@ class CustomerAuthController extends Controller
 
         $data = $request->validated();
 
+        $township = Township::with('stateRegion')->find($data['township_id']);
+        $stateRegion = $township?->stateRegion;
+
         CustomerAddress::create([
             'customer_id' => $customer->id,
             'receiver_name' => $data['receiver_name'],
             'phone' => $data['phone'],
             'address' => $data['address'],
-            'township' => $data['township'],
-            'city' => $data['city'],
+            'state_region_id' => $data['state_region_id'],
+            'township_id' => $data['township_id'],
+            'township' => $township?->name ?? '',
+            'city' => $stateRegion?->name ?? '',
         ]);
 
         return back()->with('success', 'Address added successfully.');
@@ -440,13 +447,38 @@ class CustomerAuthController extends Controller
             abort(403);
         }
 
-        $addresses = $customer->addresses()->latest()->get();
+        $addresses = $customer->addresses()->with(['stateRegion', 'townshipRelation'])->latest()->get();
+
+        $stateRegions = StateRegion::query()
+            ->where('is_active', true)
+            ->orderBy('name')
+            ->get(['id', 'code', 'name']);
 
         return view('shop.account.addresses', [
             'customer' => $customer,
             'addresses' => $addresses,
             'banner' => $banner,
+            'stateRegions' => $stateRegions,
         ]);
+    }
+
+    public function townships(Request $request): JsonResponse
+    {
+        $stateRegionId = $request->integer('state_region_id');
+
+        $townships = Township::query()
+            ->with('deliveryInfo')
+            ->where('state_region_id', $stateRegionId)
+            ->where('is_active', true)
+            ->orderBy('name')
+            ->get()
+            ->map(fn (Township $t) => [
+                'id' => $t->id,
+                'name' => $t->name,
+                'delivery_fees' => (float) ($t->deliveryInfo->delivery_fees ?? 0),
+            ]);
+
+        return response()->json($townships);
     }
 
     public function payments(): View

@@ -7,12 +7,15 @@ use App\Models\Banner;
 use App\Models\Category;
 use App\Models\Collection;
 use App\Models\CustomerAddress;
+use App\Models\DeliveryInfo;
 use App\Models\Order;
 use App\Models\OrderAddress;
 use App\Models\OrderItem;
 use App\Models\Payment;
 use App\Models\Product;
 use App\Models\ProductVariant;
+use App\Models\StateRegion;
+use App\Models\Township;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -344,11 +347,25 @@ class ShopController extends Controller
             ->orderBy('name')
             ->get();
 
+        $stateRegions = StateRegion::query()
+            ->where('is_active', true)
+            ->orderBy('name')
+            ->get(['id', 'code', 'name']);
+
+        $customer = Auth::guard('customer')->user();
+        $defaultAddress = $customer->addresses()
+            ->with(['stateRegion', 'townshipRelation'])
+            ->latest()
+            ->first();
+
         return view('shop.checkout', [
             'cartItems' => $cartItems,
             'subtotal' => $subtotal,
             'payments' => $payments,
             'banner' => $banner,
+            'stateRegions' => $stateRegions,
+            'defaultAddress' => $defaultAddress,
+            'customer' => $customer,
         ]);
     }
 
@@ -374,6 +391,11 @@ class ShopController extends Controller
         $subtotal = $cartItems->sum(function (array $item): float {
             return ((float) ($item['price'] ?? 0)) * ((int) ($item['quantity'] ?? 0));
         });
+
+        $township = Township::with('stateRegion')->find($data['billing_township_id']);
+        $deliveryInfo = DeliveryInfo::query()->where('township_id', $data['billing_township_id'])->first();
+        $deliveryFees = $deliveryInfo ? (float) $deliveryInfo->delivery_fees : 0.0;
+        $totalAmount = $subtotal + $deliveryFees;
 
         $paymentId = $data['payment_id'] ?? null;
         $paymentMethod = $data['payment_method'];
@@ -408,25 +430,33 @@ class ShopController extends Controller
                 $paymentId,
                 $paymentMethod,
                 $paymentProof,
-                $subtotal
+                $township,
+                $deliveryFees,
+                $totalAmount
             ): Order {
                 $order = Order::create([
                     'customer_id' => $customer->id,
+                    'state_region_id' => $data['billing_state_region_id'],
+                    'township_id' => $data['billing_township_id'],
+                    'delivery_fees' => $deliveryFees,
                     'order_code' => $this->generateOrderCode(),
                     'payment_id' => $paymentMethod === 'online_payment' ? $paymentId : null,
                     'payment_proof_photo' => $paymentProof,
                     'payment_method' => $paymentMethod,
-                    'total_amount' => $subtotal,
+                    'total_amount' => $totalAmount,
                     'status' => 'pending',
                 ]);
+
+                $billingTownshipName = $township?->name ?? '';
+                $billingCityName = $township?->stateRegion?->name ?? '';
 
                 $billing = [
                     'receiver_name' => trim($data['billing_first_name'].' '.$data['billing_last_name']),
                     'phone' => $data['billing_phone'],
                     'address_line1' => $data['billing_address_line1'],
                     'address_line2' => $data['billing_address_line2'] ?? null,
-                    'township' => $data['billing_township'],
-                    'city' => $data['billing_city'],
+                    'township' => $billingTownshipName,
+                    'city' => $billingCityName,
                     'postal_code' => $data['billing_postal_code'] ?? null,
                     'country' => $data['billing_country'],
                 ];
@@ -456,14 +486,20 @@ class ShopController extends Controller
                     'type' => 'shipping',
                 ]));
 
-                CustomerAddress::firstOrCreate([
-                    'customer_id' => $customer->id,
-                    'receiver_name' => $billing['receiver_name'],
-                    'phone' => $billing['phone'],
-                    'address' => $billing['address_line1'],
-                    'township' => $billing['township'],
-                    'city' => $billing['city'],
-                ]);
+                CustomerAddress::firstOrCreate(
+                    [
+                        'customer_id' => $customer->id,
+                        'receiver_name' => $billing['receiver_name'],
+                        'phone' => $billing['phone'],
+                        'address' => $billing['address_line1'],
+                        'state_region_id' => $data['billing_state_region_id'],
+                        'township_id' => $data['billing_township_id'],
+                    ],
+                    [
+                        'township' => $billing['township'],
+                        'city' => $billing['city'],
+                    ]
+                );
 
                 foreach ($cartItems as $cartItem) {
                     $variantId = $cartItem['variant_id'] ?? null;

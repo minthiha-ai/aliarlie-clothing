@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class CheckoutRequest extends FormRequest
 {
@@ -28,8 +29,13 @@ class CheckoutRequest extends FormRequest
             'billing_email' => ['required', 'email', 'max:255'],
             'billing_address_line1' => ['required', 'string', 'max:255'],
             'billing_address_line2' => ['nullable', 'string', 'max:255'],
-            'billing_township' => ['required', 'string', 'max:255'],
-            'billing_city' => ['required', 'string', 'max:255'],
+            'billing_state_region_id' => ['required', 'integer', 'exists:state_regions,id'],
+            'billing_township_id' => [
+                'required',
+                'integer',
+                'exists:townships,id',
+                Rule::exists('townships', 'id')->where('state_region_id', $this->input('billing_state_region_id')),
+            ],
             'billing_postal_code' => ['nullable', 'string', 'max:50'],
             'billing_country' => ['required', 'string', 'max:100'],
             'ship_to_different' => ['nullable', 'boolean'],
@@ -58,8 +64,8 @@ class CheckoutRequest extends FormRequest
             'billing_email.required' => 'Please enter your billing email address.',
             'billing_email.email' => 'Please enter a valid billing email address.',
             'billing_address_line1.required' => 'Please enter your billing street address.',
-            'billing_township.required' => 'Please enter your billing township.',
-            'billing_city.required' => 'Please enter your billing city.',
+            'billing_state_region_id.required' => 'Please select your state / region.',
+            'billing_township_id.required' => 'Please select your township.',
             'billing_country.required' => 'Please select your billing country.',
             'shipping_first_name.required_if' => 'Please enter the shipping first name.',
             'shipping_last_name.required_if' => 'Please enter the shipping last name.',
@@ -85,8 +91,8 @@ class CheckoutRequest extends FormRequest
             'billing_phone' => 'billing phone',
             'billing_email' => 'billing email',
             'billing_address_line1' => 'billing address',
-            'billing_township' => 'billing township',
-            'billing_city' => 'billing city',
+            'billing_state_region_id' => 'state / region',
+            'billing_township_id' => 'township',
             'shipping_first_name' => 'shipping first name',
             'shipping_last_name' => 'shipping last name',
             'shipping_phone' => 'shipping phone',

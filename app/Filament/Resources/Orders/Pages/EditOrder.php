@@ -21,6 +21,11 @@ class EditOrder extends EditRecord
         ];
     }
 
+    protected function afterSave(): void
+    {
+        $this->record->recalculateTotalAmount();
+    }
+
     public function refreshTotalAmount(): void
     {
         $this->record->refresh();

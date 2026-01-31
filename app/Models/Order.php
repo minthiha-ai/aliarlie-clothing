@@ -13,6 +13,9 @@ class Order extends Model
 
     protected $fillable = [
         'customer_id',
+        'state_region_id',
+        'township_id',
+        'delivery_fees',
         'order_code',
         'payment_id',
         'payment_proof_photo',
@@ -25,6 +28,7 @@ class Order extends Model
     {
         return [
             'total_amount' => 'decimal:2',
+            'delivery_fees' => 'decimal:2',
         ];
     }
 
@@ -48,14 +52,26 @@ class Order extends Model
         return $this->hasMany(OrderAddress::class);
     }
 
+    public function stateRegion(): BelongsTo
+    {
+        return $this->belongsTo(StateRegion::class);
+    }
+
+    public function township(): BelongsTo
+    {
+        return $this->belongsTo(Township::class);
+    }
+
     public function recalculateTotalAmount(): void
     {
-        $total = $this->items()
+        $itemsTotal = (float) $this->items()
             ->selectRaw('COALESCE(SUM(price * quantity), 0) as total')
             ->value('total');
 
+        $deliveryFees = (float) ($this->delivery_fees ?? 0);
+
         $this->update([
-            'total_amount' => $total,
+            'total_amount' => $itemsTotal + $deliveryFees,
         ]);
     }
 
