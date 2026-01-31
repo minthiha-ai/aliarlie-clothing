@@ -12,13 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('categories', function (Blueprint $table): void {
-            $table->unsignedInteger('sort_order')->default(1);
+            $table->unsignedInteger('sort_order')->default(99);
         });
         Schema::table('banners', function (Blueprint $table): void {
-            $table->unsignedInteger('sort_order')->default(1);
+            $table->unsignedInteger('sort_order')->default(99);
         });
         Schema::table('products', function (Blueprint $table): void {
-            $table->unsignedInteger('sort_order')->default(1);
+            $table->unsignedInteger('sort_order')->default(99);
         });
     }
 
