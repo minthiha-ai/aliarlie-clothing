@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Banner extends Model
 {
@@ -16,6 +17,7 @@ class Banner extends Model
         'page',
         'is_active',
         'sort_order',
+        'product_id',
     ];
 
     protected function casts(): array
@@ -24,5 +26,10 @@ class Banner extends Model
             'is_active' => 'boolean',
             'sort_order' => 'integer',
         ];
+    }
+
+    public function product(): BelongsTo
+    {
+        return $this->belongsTo(Product::class);
     }
 }

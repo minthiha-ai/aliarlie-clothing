@@ -36,6 +36,15 @@ class BannerForm
                             ])
                             ->columnSpan(1),
 
+                        Select::make('product_id')
+                            ->label('Link to Product')
+                            ->relationship('product', 'name')
+                            ->searchable()
+                            ->preload()
+                            ->placeholder('None – no link')
+                            ->helperText('Optional. When set, the banner will link to this product (e.g. on the homepage slider).')
+                            ->columnSpan(1),
+
                         Toggle::make('is_active')
                             ->label('Active')
                             ->helperText('Inactive banners will not be shown on the website.')

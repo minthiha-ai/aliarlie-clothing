@@ -13,7 +13,15 @@
         @forelse ($banners as $banner)
           <div class="swiper-slide">
             <!-- Start Slide Item -->
-            <div class="home-slider-item">
+            @php
+              $bannerLink = $banner->product_id && $banner->relationLoaded('product') && $banner->product
+                  ? route('shop.product', $banner->product->id)
+                  : null;
+            @endphp
+            <div class="home-slider-item {{ $bannerLink ? 'home-slider-item--linked' : '' }}">
+              @if ($bannerLink)
+                <a href="{{ $bannerLink }}" class="home-slider-item__link stretched-link" aria-label="{{ $banner->product->name ?? 'View product' }}"></a>
+              @endif
               <div class="bg-thumb bg-overlay bg-img" data-bg-img="{{ $banner->image ? \Illuminate\Support\Facades\Storage::disk('public')->url($banner->image) : asset('assets/img/slider/h1-s1.jpg') }}"></div>
               <div class="slider-content-area">
                 <div class="container">
@@ -24,6 +32,9 @@
                           <h3 class="slider-title">{{ $banner->title ?? 'NEW IN' }}</h3>
                           @if ($banner->description)
                             <p class="slider-desc">{{ $banner->description }}</p>
+                          @endif
+                          @if ($bannerLink)
+                            <span class="btn btn-dark mt-2">View product</span>
                           @endif
                         </div>
                       </div>
@@ -256,6 +267,15 @@
     }
     .home-slider-area.slider-default .slider-content-area .content .inner-content .slider-desc::after {
       display: none !important;
+    }
+    /* Linked banner slide: whole slide clickable to product */
+    .home-slider-item--linked {
+      position: relative;
+    }
+    .home-slider-item__link.stretched-link {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
     }
     @media (min-width: 576px) {
       .home-slider-area.slider-default .slider-content-area .content .inner-content .slider-title {

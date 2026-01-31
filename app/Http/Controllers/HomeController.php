@@ -12,6 +12,7 @@ class HomeController extends Controller
     public function index()
     {
         $banners = Banner::query()
+            ->with('product')
             ->where('is_active', true)
             ->where(function ($query) {
                 $query

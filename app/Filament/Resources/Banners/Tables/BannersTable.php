@@ -24,6 +24,11 @@ class BannersTable
                     ->searchable(),
                 TextColumn::make('page')
                     ->searchable(),
+                TextColumn::make('product.name')
+                    ->label('Links to')
+                    ->placeholder('—')
+                    ->searchable()
+                    ->toggleable(),
                 ImageColumn::make('image')
                     ->label('Image')
                     ->disk('public')
