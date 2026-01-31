@@ -26,10 +26,10 @@ class ProductsTable
                 TextColumn::make('slug')
                     ->searchable(),
                 TextColumn::make('price')
-                    ->money()
+                    ->formatStateUsing(fn ($state) => $state !== null ? 'MMK '.number_format((float) $state, 2) : '')
                     ->sortable(),
                 TextColumn::make('discount_price')
-                    ->money()
+                    ->formatStateUsing(fn ($state) => $state !== null ? 'MMK '.number_format((float) $state, 2) : '')
                     ->sortable(),
                 IconColumn::make('is_active')
                     ->boolean(),

@@ -19,7 +19,7 @@ class OrderStats extends StatsOverviewWidget
                 ->description('All time'),
             Stat::make('Pending Orders', number_format($pendingOrders))
                 ->description('Need action'),
-            Stat::make('Revenue', '$'.number_format($totalRevenue, 2))
+            Stat::make('Revenue', 'MMK '.number_format($totalRevenue, 2))
                 ->description('All time'),
         ];
     }

@@ -28,7 +28,7 @@ class RecentOrders extends TableWidget
             TextColumn::make('status')
                 ->badge(),
             TextColumn::make('total_amount')
-                ->money('USD'),
+                ->formatStateUsing(fn ($state) => $state !== null ? 'MMK '.number_format((float) $state, 2) : ''),
             TextColumn::make('created_at')
                 ->label('Placed')
                 ->dateTime(),

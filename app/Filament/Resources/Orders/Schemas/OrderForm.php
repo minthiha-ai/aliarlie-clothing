@@ -5,8 +5,8 @@ namespace App\Filament\Resources\Orders\Schemas;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
-use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Components\Section;
+use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Schema;
 
 class OrderForm
@@ -55,7 +55,7 @@ class OrderForm
                         TextInput::make('total_amount')
                             ->label('Total Amount')
                             ->numeric()
-                            ->prefix('$')
+                            ->prefix('MMK ')
                             ->default(0)
                             ->disabled()
                             ->dehydrated(true)
@@ -105,7 +105,7 @@ class OrderForm
                             ->columnSpan(1),
                     ])
                     ->columns(2)
-                    ->visible(fn(Get $get): bool => $get('payment_method') === 'online_payment')
+                    ->visible(fn (Get $get): bool => $get('payment_method') === 'online_payment')
                     ->columnSpanFull(),
             ]);
     }

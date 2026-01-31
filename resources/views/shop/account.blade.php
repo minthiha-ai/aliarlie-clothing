@@ -176,7 +176,7 @@
                                 <img src="{{ $imageUrl }}" alt="Order item" class="account-order-item-image">
                               </div>
                             </td>
-                            <td class="account-order-total">${{ number_format($order->total_amount, 2) }}</td>
+                            <td class="account-order-total">MMK {{ number_format($order->total_amount, 2) }}</td>
                             <td class="text-end">
                               <a href="{{ route('shop.orders.show', $order->id) }}" class="account-manage-link">MANAGE</a>
                             </td>

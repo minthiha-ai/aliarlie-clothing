@@ -283,7 +283,7 @@
             <div class="single-product-info">
               <h4 class="title">Product Simple</h4>
               <div class="prices">
-                <span class="price">£49.90</span>
+                <span class="price">MMK 49.90</span>
               </div>
               <p class="product-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
               <div class="quick-product-action">

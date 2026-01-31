@@ -103,7 +103,7 @@
                           <div class="content-inner">
                             <h4 class="title"><a href="{{ route('shop.product', $product->id) }}">{{ $product->name }}</a></h4>
                             <div class="prices">
-                              <span class="price">${{ number_format($price, 2) }}</span>
+                              <span class="price">MMK {{ number_format($price, 2) }}</span>
                             </div>
                           </div>
                         </div>
@@ -140,7 +140,7 @@
                           <div class="content-inner">
                             <h4 class="title"><a href="{{ route('shop.product', $product->id) }}">{{ $product->name }}</a></h4>
                             <div class="prices">
-                              <span class="price">${{ number_format($price, 2) }}</span>
+                              <span class="price">MMK {{ number_format($price, 2) }}</span>
                             </div>
                             <p>{{ $product->description ?: 'Explore this item and add it to your cart for a fresh new look.' }}</p>
                             <div class="product-action-btn">

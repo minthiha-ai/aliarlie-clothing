@@ -50,7 +50,7 @@
             </div>
             <div class="text-end">
               <span class="badge bg-{{ $orderStatusClass }} text-uppercase">{{ $order->status }}</span>
-              <div class="fw-semibold text-dark mt-2">${{ number_format($order->total_amount, 2) }}</div>
+              <div class="fw-semibold text-dark mt-2">MMK {{ number_format($order->total_amount, 2) }}</div>
               <a href="{{ route('shop.orders.index') }}" class="btn btn-outline-dark btn-sm mt-2">Back to orders</a>
             </div>
           </div>
@@ -87,7 +87,7 @@
                         </td>
                         <td class="text-muted">{{ $variantLabel ?: '—' }}</td>
                         <td>{{ $item->quantity }}</td>
-                        <td class="text-end fw-semibold">${{ number_format($item->price * $item->quantity, 2) }}</td>
+                        <td class="text-end fw-semibold">MMK {{ number_format($item->price * $item->quantity, 2) }}</td>
                       </tr>
                     @endforeach
                   </tbody>
@@ -102,7 +102,7 @@
               <h4 class="mb-3">Order Summary</h4>
               <div class="d-flex justify-content-between mb-2">
                 <span class="text-muted">Total</span>
-                <span class="fw-semibold text-dark">${{ number_format($order->total_amount, 2) }}</span>
+                <span class="fw-semibold text-dark">MMK {{ number_format($order->total_amount, 2) }}</span>
               </div>
               <div class="d-flex justify-content-between mb-2">
                 <span class="text-muted">Payment</span>

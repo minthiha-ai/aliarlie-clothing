@@ -34,8 +34,7 @@ class ItemsRelationManager extends RelationManager
                         ->preload()
                         ->required()
                         ->getOptionLabelFromRecordUsing(
-                            fn(ProductVariant $record): string =>
-                            "{$record->product->name} — {$record->sku} ({$record->size} / {$record->color})"
+                            fn (ProductVariant $record): string => "{$record->product->name} — {$record->sku} ({$record->size} / {$record->color})"
                         )
                         ->reactive()
                         ->afterStateUpdated(function ($state, Set $set) {
@@ -49,7 +48,7 @@ class ItemsRelationManager extends RelationManager
                     TextInput::make('price')
                         ->label('Unit Price')
                         ->numeric()
-                        ->prefix('$')
+                        ->prefix('MMK ')
                         ->required()
                         ->disabled()
                         ->dehydrated(),
@@ -87,7 +86,7 @@ class ItemsRelationManager extends RelationManager
                     ->label('Color'),
 
                 TextColumn::make('price')
-                    ->money('USD')
+                    ->formatStateUsing(fn ($state) => $state !== null ? 'MMK '.number_format((float) $state, 2) : '')
                     ->sortable(),
 
                 TextColumn::make('quantity')

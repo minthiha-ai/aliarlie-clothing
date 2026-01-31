@@ -21,7 +21,7 @@ class OrdersTable
                 TextColumn::make('order_code')
                     ->searchable(),
                 TextColumn::make('total_amount')
-                    ->money('USD')
+                    ->formatStateUsing(fn ($state) => $state !== null ? 'MMK '.number_format((float) $state, 2) : '')
                     ->sortable(),
                 TextColumn::make('status')
                     ->badge()

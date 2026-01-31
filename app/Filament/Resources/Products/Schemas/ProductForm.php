@@ -48,11 +48,11 @@ class ProductForm
                         TextInput::make('price')
                             ->required()
                             ->numeric()
-                            ->prefix('$')
+                            ->prefix('MMK ')
                             ->minValue(0),
                         TextInput::make('discount_price')
                             ->numeric()
-                            ->prefix('$')
+                            ->prefix('MMK ')
                             ->minValue(0),
                         Toggle::make('is_active')
                             ->label('Active')

@@ -51,7 +51,7 @@
                       <small class="d-block text-muted">{{ $item['variant'] }}</small>
                     @endif
                   </td>
-                  <td class="pro-price"><span>${{ number_format($price, 2) }}</span></td>
+                  <td class="pro-price"><span>MMK {{ number_format($price, 2) }}</span></td>
                   <td class="pro-quantity">
                     <div class="action-top">
                       <div class="pro-qty-area">
@@ -67,7 +67,7 @@
                       </div>
                     </div>
                   </td>
-                  <td class="pro-subtotal"><span>${{ number_format($lineTotal, 2) }}</span></td>
+                  <td class="pro-subtotal"><span>MMK {{ number_format($lineTotal, 2) }}</span></td>
                 </tr>
               @endforeach
             </tbody>
@@ -90,7 +90,7 @@
             <tbody>
               <tr>
                 <th>Subtotal</th>
-                <td><span class="amount">${{ number_format($subtotal, 2) }}</span></td>
+                <td><span class="amount">MMK {{ number_format($subtotal, 2) }}</span></td>
               </tr>
               <tr class="shipping-totals">
                 <th>Shipping</th>
@@ -99,7 +99,7 @@
                     <li>
                       <div class="form-check">
                         <input class="form-check-input" type="radio" name="shipping_method" id="shipping_flat_rate">
-                        <label class="form-check-label" for="shipping_flat_rate">Flat rate: <span class="amount">$50.00</span></label>
+                        <label class="form-check-label" for="shipping_flat_rate">Flat rate: <span class="amount">MMK 50.00</span></label>
                       </div>
                       <div class="form-check">
                         <input class="form-check-input" type="radio" name="shipping_method" id="shipping_local_pickup" checked>
@@ -113,7 +113,7 @@
               </tr>
               <tr class="amount-total">
                 <th>Total</th>
-                <td><span class="amount">${{ number_format($subtotal, 2) }}</span></td>
+                <td><span class="amount">MMK {{ number_format($subtotal, 2) }}</span></td>
               </tr>
             </tbody>
           </table>

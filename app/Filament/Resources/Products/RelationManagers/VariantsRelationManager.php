@@ -43,12 +43,12 @@ class VariantsRelationManager extends RelationManager
                         TextInput::make('price')
                             ->required()
                             ->numeric()
-                            ->prefix('$')
+                            ->prefix('MMK ')
                             ->minValue(0),
 
                         TextInput::make('discount_price')
                             ->numeric()
-                            ->prefix('$')
+                            ->prefix('MMK ')
                             ->lt('price')
                             ->minValue(0)
                             ->helperText('Must be less than price'),
@@ -98,11 +98,11 @@ class VariantsRelationManager extends RelationManager
                     ->sortable(),
 
                 TextColumn::make('price')
-                    ->money()
+                    ->formatStateUsing(fn ($state) => $state !== null ? 'MMK '.number_format((float) $state, 2) : '')
                     ->sortable(),
 
                 TextColumn::make('discount_price')
-                    ->money()
+                    ->formatStateUsing(fn ($state) => $state !== null ? 'MMK '.number_format((float) $state, 2) : '')
                     ->sortable(),
 
                 TextColumn::make('stock.quantity')

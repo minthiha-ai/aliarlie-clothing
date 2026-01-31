@@ -288,19 +288,19 @@
                                 <span class="ms-1">× {{ $cartItem['quantity'] ?? 1 }}</span>
                               </div>
                             </td>
-                            <td class="text-end">${{ number_format(($cartItem['price'] ?? 0) * ($cartItem['quantity'] ?? 1), 2) }}</td>
+                            <td class="text-end">MMK {{ number_format(($cartItem['price'] ?? 0) * ($cartItem['quantity'] ?? 1), 2) }}</td>
                           </tr>
                         @endforeach
                       </tbody>
                       <tfoot>
                         <tr class="text-muted">
                           <th>Subtotal</th>
-                          <td class="text-end">${{ number_format($subtotal, 2) }}</td>
+                          <td class="text-end">MMK {{ number_format($subtotal, 2) }}</td>
                         </tr>
                         <tr>
                           <th class="fw-bold">Total</th>
                           <td class="text-end">
-                            <div class="bg-light px-3 py-2 rounded fw-bold fs-6">${{ number_format($subtotal, 2) }}</div>
+                            <div class="bg-light px-3 py-2 rounded fw-bold fs-6">MMK {{ number_format($subtotal, 2) }}</div>
                           </td>
                         </tr>
                       </tfoot>
@@ -366,7 +366,7 @@
               </div>
 
               <button class="btn btn-dark w-100" type="submit">
-                Place order • ${{ number_format($subtotal, 2) }}
+                Place order • MMK {{ number_format($subtotal, 2) }}
               </button>
               <p class="text-muted small mt-3">Your personal data will be used to process your order and support your experience throughout this website.</p>
             </div>

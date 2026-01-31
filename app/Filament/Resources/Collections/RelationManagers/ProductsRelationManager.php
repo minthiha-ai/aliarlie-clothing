@@ -59,7 +59,7 @@ class ProductsRelationManager extends RelationManager
                     ->toggleable(),
                 TextColumn::make('price')
                     ->label('Price')
-                    ->money()
+                    ->formatStateUsing(fn ($state) => $state !== null ? 'MMK '.number_format((float) $state, 2) : '')
                     ->sortable(),
                 TextColumn::make('pivot.sort_order')
                     ->label('Sort Order')

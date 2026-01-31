@@ -22,7 +22,7 @@
         </div>
         <div class="product-info">
           <h4 class="title"><a href="javascript:void(0);">{{ $item['name'] ?? 'Product' }}</a></h4>
-          <span class="info">{{ $quantity }} × ${{ number_format($price, 2) }}</span>
+          <span class="info">{{ $quantity }} × MMK {{ number_format($price, 2) }}</span>
         </div>
       <div class="product-delete">
         <button
@@ -40,7 +40,7 @@
     @endforelse
   </div>
   <div class="cart-total">
-    <h4>Subtotal: <span class="money">${{ number_format($sidebarSubtotal, 2) }}</span></h4>
+    <h4>Subtotal: <span class="money">MMK {{ number_format($sidebarSubtotal, 2) }}</span></h4>
   </div>
   <div class="cart-checkout-btn">
     <a class="btn-theme" href="{{ route('shop.cart') }}">View cart</a>

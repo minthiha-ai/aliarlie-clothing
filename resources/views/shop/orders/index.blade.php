@@ -71,7 +71,7 @@
                       <td>
                         <span class="badge bg-{{ $orderStatusClass }} text-uppercase">{{ $order->status }}</span>
                       </td>
-                      <td class="fw-semibold text-dark">${{ number_format($order->total_amount, 2) }}</td>
+                      <td class="fw-semibold text-dark">MMK {{ number_format($order->total_amount, 2) }}</td>
                       <td class="text-muted">{{ $order->created_at?->format('M d, Y') }}</td>
                       <td class="text-end">
                         <a href="{{ route('shop.orders.show', $order->id) }}" class="btn btn-outline-dark btn-sm">View Order</a>
