@@ -1,11 +1,11 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\CustomerAuthController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ShopController;
+use Illuminate\Support\Facades\Route;
 
 // Home
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -65,6 +65,9 @@ Route::prefix('pages')->name('pages.')->group(function () {
 
 // Contact
 Route::get('/contact', [PageController::class, 'contact'])->name('contact');
+Route::post('/contact', [PageController::class, 'contactStore'])
+    ->middleware('throttle:3,1')
+    ->name('contact.store');
 
 // Blog Routes
 Route::prefix('blog')->name('blog.')->group(function () {

@@ -21,9 +21,9 @@
                     <div class="col-md-8 col-lg-5 m-auto">
                       <div class="content">
                         <div class="inner-content">
-                          <h2>{{ $banner->title ?? 'NEW IN' }}</h2>
+                          <h3 class="slider-title">{{ $banner->title ?? 'NEW IN' }}</h3>
                           @if ($banner->description)
-                            <p>{{ $banner->description }}</p>
+                            <p class="slider-desc">{{ $banner->description }}</p>
                           @endif
                         </div>
                       </div>
@@ -44,8 +44,8 @@
                     <div class="col-md-8 col-lg-5 m-auto">
                       <div class="content">
                         <div class="inner-content">
-                          <h2>NEW IN</h2>
-                          <p>Discover the latest styles from Aliarlie.</p>
+                          <h3 class="slider-title">NEW IN</h3>
+                          <p class="slider-desc">Discover the latest styles from Aliarlie.</p>
                         </div>
                       </div>
                     </div>
@@ -235,11 +235,40 @@
 @endsection
 
 @push('styles')
-  {{-- Hide decorative white lines from template CSS (h2:after and p:after in .inner-content) --}}
   <style>
-    .home-slider-area.slider-default .slider-content-area .content .inner-content h2::after,
-    .home-slider-area.slider-default .slider-content-area .content .inner-content p::after {
+    /* Hero slider: h3-size title, hide decorative lines */
+    .home-slider-area.slider-default .slider-content-area .content .inner-content .slider-title {
+      color: #fff;
+      font-family: "Abril Fatface", cursive;
+      font-size: 1.75rem;
+      font-weight: 400;
+      line-height: 1.3;
+      margin-bottom: 0.5rem;
+      text-transform: uppercase;
+    }
+    .home-slider-area.slider-default .slider-content-area .content .inner-content .slider-title::after {
       display: none !important;
+    }
+    .home-slider-area.slider-default .slider-content-area .content .inner-content .slider-desc {
+      color: #fff;
+      font-size: 1.1rem;
+      margin: 0 auto;
+    }
+    .home-slider-area.slider-default .slider-content-area .content .inner-content .slider-desc::after {
+      display: none !important;
+    }
+    @media (min-width: 576px) {
+      .home-slider-area.slider-default .slider-content-area .content .inner-content .slider-title {
+        font-size: 2.25rem;
+      }
+      .home-slider-area.slider-default .slider-content-area .content .inner-content .slider-desc {
+        font-size: 1.15rem;
+      }
+    }
+    @media (min-width: 992px) {
+      .home-slider-area.slider-default .slider-content-area .content .inner-content .slider-title {
+        font-size: 2.75rem;
+      }
     }
   </style>
 @endpush

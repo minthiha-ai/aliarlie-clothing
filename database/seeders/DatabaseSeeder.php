@@ -37,6 +37,8 @@ class DatabaseSeeder extends Seeder
 
         Banner::factory()->count(4)->create();
 
+        $this->call(ContactInfoSeeder::class);
+
         $payments = Payment::factory()->count(3)->create();
         $categories = Category::factory()->count(5)->create();
 

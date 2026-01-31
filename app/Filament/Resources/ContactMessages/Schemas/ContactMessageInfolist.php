@@ -1,0 +1,36 @@
+<?php
+
+namespace App\Filament\Resources\ContactMessages\Schemas;
+
+use Filament\Infolists\Components\TextEntry;
+use Filament\Schemas\Schema;
+
+class ContactMessageInfolist
+{
+    public static function configure(Schema $schema): Schema
+    {
+        return $schema
+            ->components([
+                TextEntry::make('name')
+                    ->label('Name'),
+                TextEntry::make('email')
+                    ->label('Email')
+                    ->copyable(),
+                TextEntry::make('phone')
+                    ->label('Phone')
+                    ->placeholder('-'),
+                TextEntry::make('message')
+                    ->label('Message'),
+                TextEntry::make('ip_address')
+                    ->label('IP Address')
+                    ->placeholder('-'),
+                TextEntry::make('read_at')
+                    ->label('Read at')
+                    ->dateTime()
+                    ->placeholder('Unread'),
+                TextEntry::make('created_at')
+                    ->label('Received at')
+                    ->dateTime(),
+            ]);
+    }
+}
