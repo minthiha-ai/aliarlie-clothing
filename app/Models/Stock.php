@@ -24,6 +24,21 @@ class Stock extends Model
         ];
     }
 
+    protected static function booted(): void
+    {
+        static::saved(function (Stock $stock): void {
+            $variant = $stock->productVariant;
+            if ($variant) {
+                $variant->update(['is_active' => $stock->quantity > 0]);
+                $variant->product?->recalculateInstock();
+            }
+        });
+
+        static::deleted(function (Stock $stock): void {
+            $stock->productVariant?->product?->recalculateInstock();
+        });
+    }
+
     public function productVariant(): BelongsTo
     {
         return $this->belongsTo(ProductVariant::class);

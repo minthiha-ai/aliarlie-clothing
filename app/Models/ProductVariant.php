@@ -31,6 +31,17 @@ class ProductVariant extends Model
         ];
     }
 
+    protected static function booted(): void
+    {
+        static::saved(function (ProductVariant $variant): void {
+            $variant->product?->recalculateInstock();
+        });
+
+        static::deleted(function (ProductVariant $variant): void {
+            $variant->product?->recalculateInstock();
+        });
+    }
+
     public function product(): BelongsTo
     {
         return $this->belongsTo(Product::class);

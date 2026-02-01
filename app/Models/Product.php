@@ -59,4 +59,17 @@ class Product extends Model
             ->withTimestamps()
             ->orderByPivot('sort_order');
     }
+
+    /**
+     * Recalculate instock from variant stock quantities.
+     * Product is in stock if at least one variant has stock quantity > 0.
+     */
+    public function recalculateInstock(): void
+    {
+        $hasStock = $this->variants()
+            ->whereHas('stock', fn ($q) => $q->where('quantity', '>', 0))
+            ->exists();
+
+        $this->forceFill(['instock' => $hasStock])->saveQuietly();
+    }
 }

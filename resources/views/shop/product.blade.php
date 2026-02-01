@@ -92,10 +92,13 @@
             </div>
             <div class="prices">
               @if ($product->discount_price)
-                <span class="price">MMK {{ number_format($product->discount_price, 2) }}</span>
-                <span class="price-old">MMK {{ number_format($product->price, 2) }}</span>
+                <span class="price {{ !$product->instock ? 'text-decoration-line-through text-danger' : '' }}">MMK {{ number_format($product->discount_price, 2) }}</span>
+                <span class="price-old {{ !$product->instock ? 'text-decoration-line-through text-danger' : '' }}">MMK {{ number_format($product->price, 2) }}</span>
               @else
-                <span class="price">MMK {{ number_format($product->price, 2) }}</span>
+                <span class="price {{ !$product->instock ? 'text-decoration-line-through text-danger' : '' }}">MMK {{ number_format($product->price, 2) }}</span>
+              @endif
+              @if (!$product->instock)
+                <span class="d-block small text-danger fw-semibold mt-1">Out of stock</span>
               @endif
             </div>
             @if ($product->description)
@@ -174,7 +177,10 @@
                   <div class="content-inner">
                     <h4 class="title"><a href="{{ route('shop.product', $related->id) }}">{{ $related->name }}</a></h4>
                     <div class="prices">
-                      <span class="price">MMK {{ number_format($price, 2) }}</span>
+                      <span class="price {{ !$related->instock ? 'text-decoration-line-through text-danger' : '' }}">MMK {{ number_format($price, 2) }}</span>
+                      @if (!$related->instock)
+                        <span class="d-block small text-danger fw-semibold mt-1">Out of stock</span>
+                      @endif
                     </div>
                   </div>
                 </div>
