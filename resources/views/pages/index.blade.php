@@ -34,7 +34,7 @@
                             <p class="slider-desc">{{ $banner->description }}</p>
                           @endif
                           @if ($bannerLink)
-                            <span class="hero-cta-btn">View product</span>
+                            <a href="{{ $bannerLink }}" class="hero-cta-btn">View product</a>
                           @endif
                         </div>
                       </div>
@@ -266,27 +266,32 @@
     .home-slider-area.slider-default .slider-content-area .content .inner-content .slider-desc::after {
       display: none !important;
     }
-    /* Hero "View product" CTA button */
+    /* Hero "View product" CTA button - group hover: hover anywhere on slide to animate button */
     .home-slider-area.slider-default .hero-cta-btn {
+      position: relative;
+      z-index: 2;
       display: inline-block;
       margin-top: 1rem;
-      padding: 0.75rem 1.75rem;
+      padding: 0.5rem 1.75rem;
       font-size: 0.875rem;
       font-weight: 600;
       letter-spacing: 0.08em;
       text-transform: uppercase;
       color: #fff;
       background: transparent;
-      border: 2px solid rgba(255, 255, 255, 0.9);
+      border: 2px solid #e53935;
       border-radius: 4px;
       text-decoration: none;
-      transition: color 0.25s ease, background 0.25s ease, border-color 0.25s ease, transform 0.2s ease;
+      transition: color 0.25s ease, background 0.25s ease, border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
     }
-    .home-slider-area.slider-default .hero-cta-btn:hover {
-      color: #1a1a1a;
-      background: #fff;
-      border-color: #fff;
-      transform: translateY(-2px);
+    .home-slider-area.slider-default .home-slider-item--linked:hover .hero-cta-btn,
+    .home-slider-area.slider-default .hero-cta-btn:hover,
+    .home-slider-area.slider-default .hero-cta-btn:focus {
+      color: #fff;
+      background: #e53935;
+      border-color: #e53935;
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 8px 24px rgba(229, 57, 53, 0.4);
     }
     /* Linked banner slide: whole slide clickable to product */
     .home-slider-item--linked {
@@ -321,12 +326,30 @@
       margin: 2.5px;
       padding: 0;
       vertical-align: middle;
+      transition: color 0.2s ease, transform 0.2s ease;
     }
     .product-item .product-info-action button.action-cart:last-child {
       margin-right: 0;
     }
     .product-item .product-info-action button.action-cart:hover {
       color: #ff1a1a;
+      transform: scale(1.15);
+    }
+    /* Product item: image zoom on hover */
+    .best-sellers-product-area .product-item .product-thumb {
+      overflow: hidden;
+    }
+    .best-sellers-product-area .product-item .product-thumb img {
+      transition: transform 0.4s ease;
+    }
+    .best-sellers-product-area .product-item:hover .product-thumb img {
+      transform: scale(1.08);
+    }
+    .best-sellers-product-area .product-item .product-info .title a {
+      transition: color 0.2s ease;
+    }
+    .best-sellers-product-area .product-item .product-info .title a:hover {
+      color: #e53935;
     }
     /* Infos area: story-style stacked blocks, content on right, transparent bg */
     .infos-area {
@@ -450,6 +473,22 @@
         max-width: 100%;
         padding: 2rem 1.25rem;
       }
+    }
+    /* Featured items: hover lift and icon animation */
+    .featured-area .featured-item {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .featured-area .featured-item:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+    }
+    .featured-area .featured-item .icon {
+      display: inline-block;
+      transition: transform 0.3s ease, color 0.3s ease;
+    }
+    .featured-area .featured-item:hover .icon {
+      transform: scale(1.08);
+      color: #e53935;
     }
   </style>
 @endpush
