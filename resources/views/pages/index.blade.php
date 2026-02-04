@@ -34,7 +34,7 @@
                             <p class="slider-desc">{{ $banner->description }}</p>
                           @endif
                           @if ($bannerLink)
-                            <span class="btn btn-dark mt-2">View product</span>
+                            <span class="hero-cta-btn">View product</span>
                           @endif
                         </div>
                       </div>
@@ -265,6 +265,28 @@
     }
     .home-slider-area.slider-default .slider-content-area .content .inner-content .slider-desc::after {
       display: none !important;
+    }
+    /* Hero "View product" CTA button */
+    .home-slider-area.slider-default .hero-cta-btn {
+      display: inline-block;
+      margin-top: 1rem;
+      padding: 0.75rem 1.75rem;
+      font-size: 0.875rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #fff;
+      background: transparent;
+      border: 2px solid rgba(255, 255, 255, 0.9);
+      border-radius: 4px;
+      text-decoration: none;
+      transition: color 0.25s ease, background 0.25s ease, border-color 0.25s ease, transform 0.2s ease;
+    }
+    .home-slider-area.slider-default .hero-cta-btn:hover {
+      color: #1a1a1a;
+      background: #fff;
+      border-color: #fff;
+      transform: translateY(-2px);
     }
     /* Linked banner slide: whole slide clickable to product */
     .home-slider-item--linked {
