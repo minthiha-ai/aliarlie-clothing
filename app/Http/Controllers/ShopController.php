@@ -15,6 +15,7 @@ use App\Models\Payment;
 use App\Models\Product;
 use App\Models\ProductVariant;
 use App\Models\StateRegion;
+use App\Models\Story;
 use App\Models\Township;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
@@ -565,31 +566,28 @@ class ShopController extends Controller
         return view('shop.account');
     }
 
-    public function collections()
+    public function stories()
     {
         $banner = $this->bannerFor('collection');
 
-        $collections = Collection::query()
-            ->where('is_active', true)
-            ->withCount('products')
-            ->with([
-                'products' => function ($query) {
-                    $query->where('is_active', true)
-                        ->with([
-                            'images' => function ($query) {
-                                $query->orderByDesc('is_primary');
-                            },
-                        ])
-                        ->limit(1);
-                },
-            ])
+        $stories = Story::query()
             ->orderBy('sort_order')
-            ->orderBy('name')
-            ->paginate(12);
+            ->latest()
+            ->get();
 
-        return view('shop.collections', [
+        return view('shop.stories', [
             'banner' => $banner,
-            'collections' => $collections,
+            'stories' => $stories,
+        ]);
+    }
+
+    public function story(Story $story)
+    {
+        $banner = $this->bannerFor('collection');
+
+        return view('shop.story', [
+            'banner' => $banner,
+            'story' => $story,
         ]);
     }
 

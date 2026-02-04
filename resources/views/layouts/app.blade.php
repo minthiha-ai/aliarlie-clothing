@@ -127,8 +127,8 @@
                   <li class="{{ request()->routeIs('shop.*') ? 'active' : '' }}">
                     <a href="{{ route('shop.index') }}">Shop</a>
                   </li>
-                  <li class="{{ request()->routeIs('shop.collections') ? 'active' : '' }}">
-                    <a href="{{ route('shop.collections') }}">Collection</a>
+                  <li class="{{ request()->routeIs('shop.stories') ? 'active' : '' }}">
+                    <a href="{{ route('shop.stories') }}">Stories</a>
                   </li>
                   <li class="{{ request()->routeIs('contact') ? 'active' : '' }}">
                     <a href="{{ route('contact') }}">Contact</a>

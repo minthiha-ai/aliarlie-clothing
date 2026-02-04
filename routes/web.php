@@ -53,7 +53,8 @@ Route::prefix('shop')->name('shop.')->group(function () {
         Route::get('/orders', [CustomerAuthController::class, 'ordersIndex'])->name('orders.index');
         Route::get('/orders/{orderId}', [CustomerAuthController::class, 'orderShow'])->name('orders.show');
     });
-    Route::get('/collections', [ShopController::class, 'collections'])->name('collections');
+    Route::get('/stories', [ShopController::class, 'stories'])->name('stories');
+    Route::get('/stories/{story}', [ShopController::class, 'story'])->name('stories.show');
     Route::get('/collection/{slug}', [ShopController::class, 'collection'])->name('collection');
     Route::get('/fullwidth', [ShopController::class, 'fullwidth'])->name('fullwidth');
 });

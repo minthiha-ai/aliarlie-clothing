@@ -77,53 +77,43 @@
 </section>
 <!--== End Hero Area Wrapper ==-->
 
-<!--== Start Infos Slider Area Wrapper ==-->
-<section class="collection-slider-area infos-slider-area">
-  <div class="collection-slider-content">
-    <div class="swiper-container collection-slider-container infos-slider-container">
-      <div class="swiper-wrapper">
-        @forelse ($infos as $info)
-          <div class="swiper-slide">
-            <div class="slider-item">
-              <div class="thumb infos-slide-thumb">
-                <div class="bg-thumb bg-overlay bg-img" data-bg-img="{{ $info->image ? \Illuminate\Support\Facades\Storage::disk('public')->url($info->image) : asset('assets/img/slider/cs1-s1.jpg') }}"></div>
-              </div>
-              <div class="slider-content-area">
-                <div class="content">
-                  <div class="inner-content">
-                    <h2>{{ $info->title }}</h2>
-                    @if ($info->description)
-                      <p>{{ \Illuminate\Support\Str::limit($info->description, 80) }}</p>
-                    @endif
-                  </div>
-                </div>
-              </div>
+<!--== Start Infos Area (story-style, no slider) ==-->
+<section class="infos-area">
+  <div class="infos-content">
+    @forelse ($infos as $info)
+      <div class="infos-item">
+        <div class="thumb infos-thumb">
+          <div class="bg-thumb bg-overlay bg-img" data-bg-img="{{ $info->image ? \Illuminate\Support\Facades\Storage::disk('public')->url($info->image) : asset('assets/img/slider/cs1-s1.jpg') }}"></div>
+        </div>
+        <div class="infos-content-area">
+          <div class="content">
+            <div class="inner-content">
+              <h2>{{ $info->title }}</h2>
+              @if ($info->description)
+                <p>{{ \Illuminate\Support\Str::limit($info->description, 120) }}</p>
+              @endif
             </div>
           </div>
-        @empty
-          <div class="swiper-slide">
-            <div class="slider-item">
-              <div class="thumb infos-slide-thumb">
-                <div class="bg-thumb bg-overlay bg-img" data-bg-img="{{ asset('assets/img/slider/cs1-s1.jpg') }}"></div>
-              </div>
-              <div class="slider-content-area">
-                <div class="content">
-                  <div class="inner-content">
-                    <h2>Welcome</h2>
-                    <p>Add content from Admin → Infos.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        @endforelse
+        </div>
       </div>
-      <div class="swiper-button-prev"></div>
-      <div class="swiper-button-next"></div>
-    </div>
+    @empty
+      <div class="infos-item">
+        <div class="thumb infos-thumb">
+          <div class="bg-thumb bg-overlay bg-img" data-bg-img="{{ asset('assets/img/slider/cs1-s1.jpg') }}"></div>
+        </div>
+        <div class="infos-content-area">
+          <div class="content">
+            <div class="inner-content">
+              <h2>Welcome</h2>
+              <p>Add content from Admin → Infos.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    @endforelse
   </div>
 </section>
-<!--== End Infos Slider Area Wrapper ==-->
+<!--== End Infos Area ==-->
 
 <!--== Start Products Area Wrapper ==-->
 <section class="product-area best-sellers-product-area">
@@ -316,55 +306,128 @@
     .product-item .product-info-action button.action-cart:hover {
       color: #ff1a1a;
     }
-    /* Infos slider: image full viewport width (100vw), content overlaid */
-    .infos-slider-area {
+    /* Infos area: story-style stacked blocks, content on right, transparent bg */
+    .infos-area {
       width: 100vw;
       max-width: 100vw;
       margin-left: calc(50% - 50vw);
       margin-right: calc(50% - 50vw);
+      margin-top: 2rem;
+      padding: 0 0 4rem;
     }
-    .infos-slider-area .collection-slider-container .swiper-slide .slider-item {
+    .infos-area .infos-content {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+    .infos-area .infos-item {
+      display: flex;
+      align-items: center;
+      height: 800px;
       position: relative;
     }
-    .infos-slider-area .slider-item .thumb.infos-slide-thumb {
-      width: 100% !important;
+    @media (max-width: 1199px) {
+      .infos-area .infos-item {
+        height: 570px;
+      }
+    }
+    @media (max-width: 767px) {
+      .infos-area {
+        padding: 0 0 3rem;
+      }
+      .infos-area .infos-content {
+        gap: 3rem;
+      }
+      .infos-area .infos-item {
+        height: 470px;
+        flex-direction: column;
+      }
+    }
+    .infos-area .infos-item .infos-thumb {
+      height: 100%;
+      overflow: hidden;
+      position: absolute;
+      width: 100%;
       left: 0;
       right: 0;
+      top: 0;
       z-index: 0;
     }
-    .infos-slider-area .slider-item .infos-slide-thumb .bg-thumb,
-    .infos-slider-area .slider-item .infos-slide-thumb .bg-img {
-      background-size: cover;
+    .infos-area .infos-item .infos-thumb .bg-thumb,
+    .infos-area .infos-item .infos-thumb .bg-img {
       background-position: center;
-      width: 100%;
+      background-size: cover;
       height: 100%;
-      transform: scale(1) !important;
-      animation: none !important;
+      width: 100%;
     }
-    .infos-slider-area .slider-item .slider-content-area {
+    @media (max-width: 767px) {
+      .infos-area .infos-item .infos-thumb {
+        position: relative;
+        width: 100%;
+        height: 50%;
+      }
+    }
+    .infos-area .infos-content-area {
+      background: transparent !important;
+      box-shadow: none !important;
       position: absolute;
-      right: 0;
+      left: 0;
+      right: auto;
       top: 0;
       bottom: 0;
       margin: 0;
-      max-width: 480px;
+      max-width: 520px;
       width: 100%;
+      padding: 3rem 2.5rem 3rem 3rem;
       z-index: 1;
       display: flex;
       align-items: center;
-      background: transparent !important;
-      box-shadow: none !important;
     }
-    .infos-slider-area .slider-item .slider-content-area .content,
-    .infos-slider-area .slider-item .slider-content-area .content .inner-content {
+    .infos-area .infos-content-area .content,
+    .infos-area .infos-content-area .content .inner-content {
       background: transparent !important;
     }
-    .infos-slider-area .slider-item .slider-content-area .content {
+    .infos-area .infos-content-area .content {
       width: 100%;
     }
-    .infos-slider-area .slider-item .slider-content-area .content h2,
-    .infos-slider-area .slider-item .slider-content-area .content p {
+    .infos-area .infos-content-area .content .inner-content h2 {
       color: #fff;
+      font-size: 1.75rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      line-height: 1.25;
+      margin-bottom: 0;
+      padding-bottom: 0.75rem;
+      border-bottom: 3px solid #e53935;
+      display: inline-block;
+    }
+    .infos-area .infos-content-area .content .inner-content p {
+      color: rgba(255, 255, 255, 0.92);
+      font-size: 0.95rem;
+      line-height: 1.65;
+      margin-top: 1rem;
+      margin-bottom: 0;
+    }
+    @media (max-width: 1199px) {
+      .infos-area .infos-content-area {
+        max-width: 48%;
+        padding: 2rem 1.75rem;
+      }
+    }
+    @media (max-width: 575px) {
+      .infos-area .infos-content-area .content .inner-content h2 {
+        font-size: 1.4rem;
+      }
+      .infos-area .infos-content-area .content .inner-content p {
+        font-size: 0.9rem;
+      }
+    }
+    @media (max-width: 767px) {
+      .infos-area .infos-content-area {
+        position: relative;
+        max-width: 100%;
+        padding: 2rem 1.25rem;
+      }
     }
   </style>
 @endpush

@@ -20,7 +20,7 @@
             <h2 class="title">{{ $collection->name }}</h2>
             <div class="bread-crumbs">
               <a href="{{ route('home') }}">Home<span class="breadcrumb-sep">></span></a>
-              <a href="{{ route('shop.collections') }}">Collections<span class="breadcrumb-sep">></span></a>
+              <a href="{{ route('shop.stories') }}">Stories<span class="breadcrumb-sep">></span></a>
               <span class="active">{{ $collection->name }}</span>
             </div>
           </div>
