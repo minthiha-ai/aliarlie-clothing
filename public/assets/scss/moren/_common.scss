@@ -722,6 +722,9 @@
   overflow: hidden;
   position: relative;
   z-index: 1;
+  min-height: 400px;
+  display: flex;
+  align-items: center;
 
   &.page-title-area2 {
     .container {
@@ -731,13 +734,13 @@
 
   .page-title-content {
     letter-spacing: 0;
-    padding: 70px 0 52px;
+    padding: 140px 0 120px;
     text-align: center;
     @media #{$sm-device} {
-      padding: 75px 0 70px;
+      padding: 120px 0 100px;
     }
     @media #{$xs-device} {
-      padding: 50px 0 40px;
+      padding: 85px 0 65px;
     }
     .title {
       color: $white;
@@ -802,7 +805,7 @@
       }
     }
     &.content-style-2 {
-      padding: 50px 0 43px;
+      padding: 140px 0 100px;
       text-align: left;
       .bread-crumbs {
         a {

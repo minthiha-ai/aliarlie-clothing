@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Banner;
 use App\Models\Category;
-use App\Models\Collection;
+use App\Models\Info;
 use App\Models\Product;
 
 class HomeController extends Controller
@@ -30,11 +30,9 @@ class HomeController extends Controller
             ->orderBy('name')
             ->get();
 
-        $collections = Collection::query()
-            ->where('is_active', true)
-            ->withCount('products')
+        $infos = Info::query()
             ->orderBy('sort_order')
-            ->orderBy('name')
+            ->latest()
             ->limit(6)
             ->get();
 
@@ -50,6 +48,6 @@ class HomeController extends Controller
             ->limit(6)
             ->get();
 
-        return view('pages.index', compact('banners', 'categories', 'collections', 'bestSellers'));
+        return view('pages.index', compact('banners', 'categories', 'infos', 'bestSellers'));
     }
 }

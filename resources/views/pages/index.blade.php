@@ -77,24 +77,24 @@
 </section>
 <!--== End Hero Area Wrapper ==-->
 
-<!--== Start Collection Slider Area Wrapper ==-->
-<section class="collection-slider-area">
+<!--== Start Infos Slider Area Wrapper ==-->
+<section class="collection-slider-area infos-slider-area">
   <div class="collection-slider-content">
-    <div class="swiper-container collection-slider-container">
+    <div class="swiper-container collection-slider-container infos-slider-container">
       <div class="swiper-wrapper">
-        @forelse ($collections as $collection)
+        @forelse ($infos as $info)
           <div class="swiper-slide">
             <div class="slider-item">
-              <div class="thumb">
-                <div class="bg-thumb bg-overlay bg-img" data-bg-img="{{ $collection->image ? \Illuminate\Support\Facades\Storage::disk('public')->url($collection->image) : asset('assets/img/slider/cs1-s1.jpg') }}"></div>
+              <div class="thumb infos-slide-thumb">
+                <div class="bg-thumb bg-overlay bg-img" data-bg-img="{{ $info->image ? \Illuminate\Support\Facades\Storage::disk('public')->url($info->image) : asset('assets/img/slider/cs1-s1.jpg') }}"></div>
               </div>
               <div class="slider-content-area">
                 <div class="content">
                   <div class="inner-content">
-                    <span>Collection</span>
-                    <h2>{{ $collection->name }}</h2>
-                    <p>{{ $collection->description ? \Illuminate\Support\Str::limit($collection->description, 80) : 'Explore our ' . strtolower($collection->name) . ' collection.' }}</p>
-                    <a href="{{ route('shop.collection', $collection->slug) }}" class="btn btn-theme">Shop Now</a>
+                    <h2>{{ $info->title }}</h2>
+                    @if ($info->description)
+                      <p>{{ \Illuminate\Support\Str::limit($info->description, 80) }}</p>
+                    @endif
                   </div>
                 </div>
               </div>
@@ -103,15 +103,14 @@
         @empty
           <div class="swiper-slide">
             <div class="slider-item">
-              <div class="thumb">
+              <div class="thumb infos-slide-thumb">
                 <div class="bg-thumb bg-overlay bg-img" data-bg-img="{{ asset('assets/img/slider/cs1-s1.jpg') }}"></div>
               </div>
               <div class="slider-content-area">
                 <div class="content">
                   <div class="inner-content">
-                    <span>Collection</span>
-                    <h2>New Arrivals</h2>
-                    <p>Discover the latest pieces curated for you.</p>
+                    <h2>Welcome</h2>
+                    <p>Add content from Admin → Infos.</p>
                   </div>
                 </div>
               </div>
@@ -119,13 +118,12 @@
           </div>
         @endforelse
       </div>
-      <!-- Add Arrows -->
       <div class="swiper-button-prev"></div>
       <div class="swiper-button-next"></div>
     </div>
   </div>
 </section>
-<!--== End Collection Slider Area Wrapper ==-->
+<!--== End Infos Slider Area Wrapper ==-->
 
 <!--== Start Products Area Wrapper ==-->
 <section class="product-area best-sellers-product-area">
@@ -250,6 +248,13 @@
 
 @push('styles')
   <style>
+    /* Hero slider: transparent content area (no white bg) */
+    .home-slider-area.slider-default .slider-content-area,
+    .home-slider-area.slider-default .slider-content-area .container,
+    .home-slider-area.slider-default .slider-content-area .content,
+    .home-slider-area.slider-default .slider-content-area .content .inner-content {
+      background: transparent !important;
+    }
     /* Hero slider: h3-size title, hide decorative lines */
     .home-slider-area.slider-default .slider-content-area .content .inner-content .slider-title {
       color: #fff;
@@ -310,6 +315,54 @@
     }
     .product-item .product-info-action button.action-cart:hover {
       color: #ff1a1a;
+    }
+    /* Infos slider: image full viewport width (100vw), content overlaid */
+    .infos-slider-area {
+      width: 100vw;
+      max-width: 100vw;
+      margin-left: calc(50% - 50vw);
+      margin-right: calc(50% - 50vw);
+    }
+    .infos-slider-area .collection-slider-container .swiper-slide .slider-item {
+      position: relative;
+    }
+    .infos-slider-area .slider-item .thumb.infos-slide-thumb {
+      width: 100% !important;
+      left: 0;
+      right: 0;
+      z-index: 0;
+    }
+    .infos-slider-area .slider-item .infos-slide-thumb .bg-thumb,
+    .infos-slider-area .slider-item .infos-slide-thumb .bg-img {
+      background-size: cover;
+      background-position: center;
+      width: 100%;
+      height: 100%;
+    }
+    .infos-slider-area .slider-item .slider-content-area {
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      margin: 0;
+      max-width: 480px;
+      width: 100%;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      background: transparent !important;
+      box-shadow: none !important;
+    }
+    .infos-slider-area .slider-item .slider-content-area .content,
+    .infos-slider-area .slider-item .slider-content-area .content .inner-content {
+      background: transparent !important;
+    }
+    .infos-slider-area .slider-item .slider-content-area .content {
+      width: 100%;
+    }
+    .infos-slider-area .slider-item .slider-content-area .content h2,
+    .infos-slider-area .slider-item .slider-content-area .content p {
+      color: #fff;
     }
   </style>
 @endpush
