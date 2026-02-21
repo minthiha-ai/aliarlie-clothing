@@ -121,8 +121,8 @@
     <div class="row">
       <div class="col-md-8 col-lg-6 m-auto">
         <div class="section-title text-center" data-aos="fade-up" data-aos-duration="1000">
-          <h2 class="title">Best Sellers</h2>
-          <h5 class="subtitle">COLLECTION 2021</h5>
+          <h2 class="title">COLLECTION</h2>
+          {{-- <h5 class="subtitle">COLLECTION 2021</h5> --}}
         </div>
       </div>
     </div>
