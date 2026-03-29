@@ -42,4 +42,9 @@
             </ul>
         </div>
     </nav>
+
+    <form method="POST" action="{{ route('shop.account.logout') }}" class="account-logout-form mt-4 pt-3 border-top">
+        @csrf
+        <button type="submit" class="btn btn-outline-dark w-100">Log out</button>
+    </form>
 </div>

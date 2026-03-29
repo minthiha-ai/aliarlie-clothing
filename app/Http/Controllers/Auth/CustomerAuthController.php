@@ -96,11 +96,21 @@ class CustomerAuthController extends Controller
         $request->session()->regenerate();
 
         if ($customer->email) {
-            $customer->sendEmailVerificationNotification();
+            try {
+                $customer->sendEmailVerificationNotification();
+            } catch (\Throwable $e) {
+                report($e);
+
+                return redirect()->route('shop.verification.notice')
+                    ->with('success', 'Account created.')
+                    ->with('error', 'We could not send the verification email. Check your mail configuration or try resending.');
+            }
         }
 
-        return redirect()->route('shop.verification.notice')
+        $redirect = redirect()->route('shop.verification.notice')
             ->with('success', 'Account created. Please verify your email address.');
+
+        return $this->withMailDriverHint($redirect);
     }
 
     public function logout(Request $request): RedirectResponse
@@ -138,11 +148,21 @@ class CustomerAuthController extends Controller
         $request->session()->regenerate();
 
         if (! $customer->hasVerifiedEmail() && $customer->email) {
-            $customer->sendEmailVerificationNotification();
+            try {
+                $customer->sendEmailVerificationNotification();
+            } catch (\Throwable $e) {
+                report($e);
+
+                return response()->json([
+                    'message' => 'Could not send verification email. Check MAIL_* settings in .env.',
+                    'redirect' => route('shop.verification.notice'),
+                ], 422);
+            }
 
             return response()->json([
                 'message' => 'Please verify your email address.',
                 'redirect' => route('shop.verification.notice'),
+                'mail_driver_log' => config('mail.default') === 'log',
             ]);
         }
 
@@ -181,10 +201,20 @@ class CustomerAuthController extends Controller
         $request->session()->regenerate();
 
         if (! $customer->hasVerifiedEmail() && $customer->email) {
-            $customer->sendEmailVerificationNotification();
+            try {
+                $customer->sendEmailVerificationNotification();
+            } catch (\Throwable $e) {
+                report($e);
 
-            return redirect()->route('shop.verification.notice')
-                ->with('success', 'Please verify your email address.');
+                return redirect()->route('shop.verification.notice')
+                    ->with('success', 'Please verify your email address.')
+                    ->with('error', 'We could not send the verification email. Check MAIL_* in .env.');
+            }
+
+            return $this->withMailDriverHint(
+                redirect()->route('shop.verification.notice')
+                    ->with('success', 'Please verify your email address.')
+            );
         }
 
         return redirect()->route('shop.account')
@@ -248,9 +278,17 @@ class CustomerAuthController extends Controller
                 ->with('success', 'Your email is already verified.');
         }
 
-        $customer->sendEmailVerificationNotification();
+        try {
+            $customer->sendEmailVerificationNotification();
+        } catch (\Throwable $e) {
+            report($e);
 
-        return back()->with('success', 'Verification link sent.');
+            return back()->with('error', 'We could not send the verification email. Check MAIL_MAILER and SMTP settings in .env.');
+        }
+
+        $redirect = back()->with('success', 'Verification link sent.');
+
+        return $this->withMailDriverHint($redirect);
     }
 
     public function updateProfile(CustomerProfileRequest $request): RedirectResponse
@@ -282,10 +320,24 @@ class CustomerAuthController extends Controller
         $customer->save();
 
         if ($emailChanged && $customer->email) {
-            $customer->sendEmailVerificationNotification();
+            try {
+                $customer->sendEmailVerificationNotification();
+            } catch (\Throwable $e) {
+                report($e);
+
+                return back()
+                    ->with('success', 'Profile updated successfully.')
+                    ->with('error', 'We could not send the verification email. Check your mail configuration.');
+            }
         }
 
-        return back()->with('success', 'Profile updated successfully.');
+        $redirect = back()->with('success', 'Profile updated successfully.');
+
+        if ($emailChanged && $customer->email) {
+            return $this->withMailDriverHint($redirect);
+        }
+
+        return $redirect;
     }
 
     private function resolveCustomerFromGoogle($googleUser): Customer
@@ -583,5 +635,20 @@ class CustomerAuthController extends Controller
             'customer' => $customer,
             'banner' => $banner,
         ]);
+    }
+
+    /**
+     * When MAIL_MAILER=log, Laravel does not deliver emails to inboxes (only logs them).
+     */
+    private function withMailDriverHint(RedirectResponse $redirect): RedirectResponse
+    {
+        if (config('mail.default') === 'log') {
+            $redirect->with(
+                'warning',
+                'Mail is set to log only (MAIL_MAILER=log): messages are written to storage/logs/laravel.log, not to your inbox. Set MAIL_MAILER=smtp and your SMTP settings in .env to receive real emails.'
+            );
+        }
+
+        return $redirect;
     }
 }
